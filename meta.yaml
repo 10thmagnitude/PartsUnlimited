@@ -1,0 +1,13 @@
+description: >
+    This repo contains the solution for Parts Unlimitd.
+    It is used for demonstrating CI/CD in VSTS.
+owner:
+    - Colin Dembovsky
+    - Steven Borg
+private: no
+license: GPL
+keywords:
+    - partsunlimited
+    - release management
+    - CI
+    - CD
