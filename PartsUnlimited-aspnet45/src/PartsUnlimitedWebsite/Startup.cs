@@ -11,6 +11,7 @@ namespace PartsUnlimited
 {
 	// bellevue comment!!
 	// second commit
+	// some other change
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
