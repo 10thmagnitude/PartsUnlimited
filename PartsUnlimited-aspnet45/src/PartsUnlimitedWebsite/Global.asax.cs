@@ -20,6 +20,7 @@ namespace PartsUnlimited
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            // change in common1
             AreaRegistration.RegisterAllAreas();
 
             Database.SetInitializer(new PartsUnlimitedDbInitializer());
