@@ -7,7 +7,6 @@ using System.Web.Configuration;
 [assembly: OwinStartup(typeof(Startup))]
 
 //comment
-// more stuff
 namespace PartsUnlimited
 {
 	// bellevue comment!!
