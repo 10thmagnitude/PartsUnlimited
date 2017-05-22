@@ -17,6 +17,7 @@ namespace PartsUnlimited
     {
         public void Configuration(IAppBuilder app)
         {
+			// fl discount changes
             ConfigureAuth(app);
 
             TelemetryConfiguration.Active.InstrumentationKey = WebConfigurationManager.AppSettings["Keys:ApplicationInsights:InstrumentationKey"];
