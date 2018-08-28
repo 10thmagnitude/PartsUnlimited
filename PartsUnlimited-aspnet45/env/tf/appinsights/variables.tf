@@ -31,4 +31,6 @@ variable "stack_config" {
 
 variable "created_by" {}
 variable "access_key" {}
+variable "rg_prefix" {}
+
 variable "release" {}

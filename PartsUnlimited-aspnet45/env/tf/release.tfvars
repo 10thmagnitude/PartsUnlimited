@@ -8,6 +8,8 @@ client_secret = "__ARM_CLIENT_SECRET__"
 
 tenant_id = "__ARM_TENANT_ID__"
 
+rg_prefix = "__RG_PREFIX__"
+
 secrets = {
   __Environment__ = {
     sql_admin_password = "__SQLPassword__"

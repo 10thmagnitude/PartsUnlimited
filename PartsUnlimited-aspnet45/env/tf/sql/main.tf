@@ -10,13 +10,14 @@ locals {
   secrets    = "${var.secrets[terraform.workspace]}"
   stack      = "${var.stack_config[terraform.workspace]}"
   created_by = "${var.created_by}"
+  rg_prefix  = "${var.rg_prefix}"
   stack_name = "${local.stack["name"]}"
 
   env_name = "${terraform.workspace}"
   release  = "${var.release}"
 
   location           = "${local.env["location"]}"
-  rg_name            = "${local.stack["rg_name_prefix"]}-${local.stack_name}-${local.env_name}"
+  rg_name            = "${local.rg_prefix}-${local.env_name}-${local.stack_name}"
   sql_server_name    = "${local.stack["sql_server_name_prefix"]}${local.env_name}"
   sql_admin_username = "${local.stack["sql_admin_username"]}"
   sql_admin_password = "${local.secrets["sql_admin_password"]}"

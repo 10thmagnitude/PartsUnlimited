@@ -10,8 +10,8 @@ data "terraform_remote_state" "sql" {
   workspace = "${terraform.workspace}"
 
   config = {
-    resource_group_name  = "cd-pu2-rg"
-    storage_account_name = "cdterrastatesa"
+    resource_group_name  = "cd-pu2-state-rg"
+    storage_account_name = "cdpu2statesa"
     container_name       = "state"
     key                  = "sql.terraform.tfstate"
     access_key           = "${var.access_key}"
@@ -23,8 +23,8 @@ data "terraform_remote_state" "appinsights" {
   workspace = "${terraform.workspace}"
 
   config = {
-    resource_group_name  = "cd-pu2-rg"
-    storage_account_name = "cdterrastatesa"
+    resource_group_name  = "cd-pu2-state-rg"
+    storage_account_name = "cdpu2statesa"
     container_name       = "state"
     key                  = "appinsights.terraform.tfstate"
     access_key           = "${var.access_key}"
@@ -36,6 +36,7 @@ locals {
   secrets    = "${var.secrets[terraform.workspace]}"
   stack      = "${var.stack_config[terraform.workspace]}"
   created_by = "${var.created_by}"
+  rg_prefix  = "${var.rg_prefix}"
   stack_name = "${local.stack["name"]}"
 
   env_name = "${terraform.workspace}"
@@ -43,7 +44,7 @@ locals {
   release = "${var.release}"
 
   location        = "${local.env["location"]}"
-  rg_name         = "${local.stack["rg_name_prefix"]}-${local.stack_name}-${local.env_name}"
+  rg_name         = "${local.rg_prefix}-${local.env_name}-${local.stack_name}"
   plan_name       = "${local.stack["plan_name_prefix"]}-${local.env_name}"
   app_name        = "${local.stack["app_name_prefix"]}-${local.env_name}"
   plan_tier       = "${local.env["webapp.tier"]}"

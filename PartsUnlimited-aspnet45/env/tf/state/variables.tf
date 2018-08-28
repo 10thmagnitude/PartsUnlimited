@@ -9,12 +9,12 @@ variable "location" {
 }
 
 variable "resource_group_name" {
-  default     = "cd-pu2-rg"
+  default     = "cd-pu2-state-rg"
   description = "The name of the resource group to create. This should not be an existing storage account."
 }
 
 variable "storage_account_name" {
-  default     = "cdpu2state"
+  default     = "cdpu2statesa"
   description = "The name of the storage account to create."
 }
 

@@ -9,6 +9,7 @@ locals {
   env        = "${var.environment[terraform.workspace]}"
   secrets    = "${var.secrets[terraform.workspace]}"
   stack      = "${var.stack_config[terraform.workspace]}"
+  rg_prefix  = "${var.rg_prefix}"
   created_by = "${var.created_by}"
   stack_name = "${local.stack["name"]}"
 
@@ -16,7 +17,7 @@ locals {
   release  = "${var.release}"
 
   location         = "${local.env["location"]}"
-  rg_name          = "${local.stack["rg_name_prefix"]}-${local.stack_name}-${local.env_name}"
+  rg_name          = "${local.rg_prefix}-${local.env_name}-${local.stack_name}"
   app_name         = "${local.stack["app_name_prefix"]}-${local.env_name}"
   appinsights_name = "${local.stack["app_name_prefix"]}-ai-${local.env_name}"
 }

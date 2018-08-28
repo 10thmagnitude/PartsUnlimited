@@ -16,14 +16,14 @@ variable "stack_config" {
 
   default = {
     dev = {
-      name             = "cdpartsun2"
+      name             = "webapp"
       rg_name_prefix   = "cd-pu2"
       plan_name_prefix = "cdpu2"
       app_name_prefix  = "cdpartsun2"
     }
 
     prod = {
-      name             = "cdpartsun2"
+      name             = "webapp"
       rg_name_prefix   = "cd-pu2"
       plan_name_prefix = "cdpu2"
       app_name_prefix  = "cdpartsun2"
@@ -33,4 +33,5 @@ variable "stack_config" {
 
 variable "created_by" {}
 variable "access_key" {}
+variable "rg_prefix" {}
 variable "release" {}

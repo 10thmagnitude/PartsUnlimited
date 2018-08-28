@@ -17,7 +17,6 @@ variable "stack_config" {
   default = {
     dev = {
       name                   = "data"
-      rg_name_prefix         = "cd-pu2"
       sql_server_name_prefix = "cdpusql"
       sql_admin_username     = "tfadmin"
       db_name                = "PartsUnlimited"
@@ -25,7 +24,6 @@ variable "stack_config" {
 
     prod = {
       name                   = "data"
-      rg_name_prefix         = "cd-pu2"
       sql_server_name_prefix = "cdpusql"
       sql_admin_username     = "tfadmin"
       db_name                = "PartsUnlimited"
@@ -34,4 +32,5 @@ variable "stack_config" {
 }
 
 variable "created_by" {}
+variable "rg_prefix" {}
 variable "release" {}
