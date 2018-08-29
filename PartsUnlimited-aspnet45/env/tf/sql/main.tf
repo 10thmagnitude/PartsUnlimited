@@ -66,3 +66,11 @@ resource "azurerm_sql_database" "db" {
     release     = "${local.release}"
   }
 }
+
+resource "azurerm_sql_firewall_rule" "db_fw" {
+  name                = "AllowAzureServicesAccess"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+  server_name         = "${azurerm_sql_server.sql.name}"
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}
