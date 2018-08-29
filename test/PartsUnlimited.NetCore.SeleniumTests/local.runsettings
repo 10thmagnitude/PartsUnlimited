@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <TestRunParameters>
+    <Parameter name="BaseUrl" value="http://bing.com" />
+    <Parameter name="HubUrl" value="http://localhost:4444/wd/hub" />
+  </TestRunParameters>
+</RunSettings>
