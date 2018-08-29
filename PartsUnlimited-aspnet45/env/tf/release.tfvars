@@ -1,14 +1,14 @@
-access_key = "__ARM_ACCESS_KEY__"
+access_key = "__ARMAccessKey__"
 
-subscription_id = "__ARM_SUBSCRIPTION_ID__"
+subscription_id = "__ARMSubscriptionId__"
 
-client_id = "__ARM_CLIENT_ID__"
+client_id = "__ARMClienId__"
 
-client_secret = "__ARM_CLIENT_SECRET__"
+client_secret = "__ARMClientSecret__"
 
-tenant_id = "__ARM_TENANT_ID__"
+tenant_id = "__ARMTenantId__"
 
-rg_prefix = "__RG_PREFIX__"
+rg_prefix = "__RGPrefix__"
 
 secrets = {
   __Environment__ = {
