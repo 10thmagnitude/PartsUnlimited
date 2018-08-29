@@ -6,6 +6,7 @@ provider "azurerm" {
 }
 
 locals {
+  app        = "${var.app}"
   env        = "${var.environment[terraform.workspace]}"
   secrets    = "${var.secrets[terraform.workspace]}"
   stack      = "${var.stack_config[terraform.workspace]}"
@@ -33,6 +34,8 @@ resource "azurerm_resource_group" "rg" {
   tags {
     environment = "${terraform.workspace}"
     created_by  = "${local.created_by}"
+    release     = "${local.release}"
+    app         = "${local.app}"
   }
 }
 
@@ -48,6 +51,7 @@ resource "azurerm_sql_server" "sql" {
     environment = "${terraform.workspace}"
     created_by  = "${local.created_by}"
     release     = "${local.release}"
+    app         = "${local.app}"
   }
 }
 
@@ -64,6 +68,7 @@ resource "azurerm_sql_database" "db" {
     environment = "${terraform.workspace}"
     created_by  = "${local.created_by}"
     release     = "${local.release}"
+    app         = "${local.app}"
   }
 }
 

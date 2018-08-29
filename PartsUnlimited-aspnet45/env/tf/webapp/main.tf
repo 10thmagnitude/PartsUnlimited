@@ -32,6 +32,7 @@ data "terraform_remote_state" "appinsights" {
 }
 
 locals {
+  app        = "${var.app}"
   env        = "${var.environment[terraform.workspace]}"
   secrets    = "${var.secrets[terraform.workspace]}"
   stack      = "${var.stack_config[terraform.workspace]}"
@@ -62,6 +63,7 @@ resource "azurerm_resource_group" "apprg" {
     environment = "${terraform.workspace}"
     created_by  = "${local.created_by}"
     release     = "${local.release}"
+    app         = "${local.app}"
   }
 }
 
@@ -79,6 +81,7 @@ resource "azurerm_app_service_plan" "plan" {
     environment = "${terraform.workspace}"
     created_by  = "${local.created_by}"
     release     = "${local.release}"
+    app         = "${local.app}"
   }
 }
 
@@ -105,6 +108,7 @@ resource "azurerm_app_service" "webapp" {
     environment = "${terraform.workspace}"
     created_by  = "${local.created_by}"
     release     = "${local.release}"
+    app         = "${local.app}"
   }
 }
 
@@ -133,5 +137,6 @@ resource "azurerm_app_service_slot" "slots" {
     environment = "${terraform.workspace}"
     created_by  = "${local.created_by}"
     release     = "${local.release}"
+    app         = "${local.app}"
   }
 }

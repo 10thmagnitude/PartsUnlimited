@@ -6,6 +6,7 @@ provider "azurerm" {
 }
 
 locals {
+  app        = "${var.app}"
   env        = "${var.environment[terraform.workspace]}"
   secrets    = "${var.secrets[terraform.workspace]}"
   stack      = "${var.stack_config[terraform.workspace]}"
@@ -30,6 +31,7 @@ resource "azurerm_resource_group" "airg" {
     environment = "${terraform.workspace}"
     created_by  = "${local.created_by}"
     release     = "${local.release}"
+    app         = "${local.app}"
   }
 }
 
@@ -44,5 +46,6 @@ resource "azurerm_application_insights" "appinsights" {
     created_by  = "${local.created_by}"
     webapp      = "${local.app_name}"
     release     = "${local.release}"
+    app         = "${local.app}"
   }
 }
