@@ -5,6 +5,7 @@ using OpenQA.Selenium.Chrome;
 using System.Linq;
 using System;
 using System.IO;
+using OpenQA.Selenium.Firefox;
 
 namespace PartsUnlimited.NetCore.SeleniumTests
 {
