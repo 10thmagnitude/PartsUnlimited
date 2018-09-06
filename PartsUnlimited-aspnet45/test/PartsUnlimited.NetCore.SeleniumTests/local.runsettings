@@ -3,5 +3,6 @@
   <TestRunParameters>
     <Parameter name="BaseUrl" value="http://bing.com" />
     <Parameter name="HubUrl" value="http://localhost:4444/wd/hub" />
+    <Parameter name="Browser" value="local" />
   </TestRunParameters>
 </RunSettings>

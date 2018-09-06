@@ -4,6 +4,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Chrome;
 using System.Linq;
 using System;
+using System.IO;
 
 namespace PartsUnlimited.NetCore.SeleniumTests
 {
@@ -13,13 +14,33 @@ namespace PartsUnlimited.NetCore.SeleniumTests
 		static IWebDriver driver;
 		static string HubUrl;
 		static string BaseUrl;
+		static string Browser;
 
 		[AssemblyInitialize]
 		public static void Setup(TestContext context)
 		{
 			HubUrl = context.Properties["HubUrl"].ToString();
 			BaseUrl = context.Properties["BaseUrl"].ToString();
-			driver = new RemoteWebDriver(new Uri(HubUrl), new ChromeOptions());
+			Browser = context.Properties["Browser"].ToString();
+			switch (Browser.ToLower())
+			{
+				case "chrome":
+				{
+					driver = new RemoteWebDriver(new Uri(HubUrl), new ChromeOptions());
+					break;
+				}
+				case "firefox":
+				{
+					driver = new RemoteWebDriver(new Uri(HubUrl), new FirefoxOptions());
+					break;
+				}
+				case "local":
+				default:
+				{
+					driver = new ChromeDriver(Directory.GetCurrentDirectory());
+					break;
+				}
+			}
 		}
 
 		[AssemblyCleanup]

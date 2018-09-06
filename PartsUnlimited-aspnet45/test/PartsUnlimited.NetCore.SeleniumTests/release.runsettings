@@ -3,5 +3,6 @@
   <TestRunParameters>
     <Parameter name="BaseUrl" value="__BaseURL__" />
     <Parameter name="HubUrl" value="http://localhost:4444/wd/hub" />
+    <Parameter name="Browser" value="__Browser__" />
   </TestRunParameters>
 </RunSettings>
