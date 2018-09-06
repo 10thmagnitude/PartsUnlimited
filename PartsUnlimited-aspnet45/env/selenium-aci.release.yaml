@@ -1,5 +1,7 @@
+type: Microsoft.ContainerInstance/containerGroups
 apiVersion: 2018-06-01
-location: eastus
+tags:
+  createdBy: colin
 properties:
   containers:
   - name: selenium-hub
@@ -11,9 +13,9 @@ properties:
           memoryInGb: 0.5
       ports:
       - port: 4444
-  - name: selenium-node
+  - name: selenium-chrome
     properties:
-      image: selenium/node-__Browser__
+      image: selenium/node-chrome
       environmentVariables:
         - "name": "HUB_HOST"
           "value": "localhost"
@@ -25,10 +27,42 @@ properties:
         requests:
           cpu: 0.5
           memoryInGb: 0.5
-  - name: vsts-agent
+  - name: selenium-firefox
+    properties:
+      image: selenium/node-firefox
+      environmentVariables:
+        - "name": "HUB_HOST"
+          "value": "localhost"
+        - "name": "HUB_PORT"
+          "value": "4444"
+        - "name": "NODE_PORT"
+          "value": "5556"
+      resources:
+        requests:
+          cpu: 0.5
+          memoryInGb: 0.5
+  - name: vsts-agent1
     properties:
       image: microsoft/vsts-agent:ubuntu-16.04
       environmentVariables:
+        - "name": "VSTS_AGENT"
+          "secureValue": "aci-agent1"
+        - "name": "VSTS_ACCOUNT"
+          "value": "__VSTSAccount__"
+        - "name": "VSTS_POOL"
+          "value": "__VSTSPool__"
+        - "name": "VSTS_TOKEN"
+          "secureValue": "__VSTSToken__"
+      resources:
+        requests:
+          cpu: 0.5
+          memoryInGb: 0.5
+  - name: vsts-agent2
+    properties:
+      image: microsoft/vsts-agent:ubuntu-16.04
+      environmentVariables:
+        - "name": "VSTS_AGENT"
+          "secureValue": "aci-agent2"
         - "name": "VSTS_ACCOUNT"
           "value": "__VSTSAccount__"
         - "name": "VSTS_POOL"
@@ -41,5 +75,3 @@ properties:
           memoryInGb: 0.5
   osType: Linux
   restartPolicy: Always
-tags: null
-type: Microsoft.ContainerInstance/containerGroups
