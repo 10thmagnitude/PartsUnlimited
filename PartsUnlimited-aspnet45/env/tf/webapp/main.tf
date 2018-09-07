@@ -96,8 +96,9 @@ resource "azurerm_app_service" "webapp" {
   #   }
 
   app_settings {
-    "SOME_KEY"                       = "some-value"
-    "APPINSIGHTS_INSTRUMENTATIONKEY" = "${local.appinsights_key}"
+    "SlotName"                                    = "prod"
+    "Environment"                                 = "${local.env}"
+    "Keys:ApplicationInsights:InstrumentationKey" = "${local.appinsights_key}"
   }
   connection_string {
     name  = "DefaultConnectionString"
@@ -125,7 +126,8 @@ resource "azurerm_app_service_slot" "slots" {
   #   }
 
   app_settings {
-    "SOME_KEY"                       = "${element(local.slots, count.index)}-value"
+    "SlotName"                                    = "${element(local.slots, count.index)}"
+    "Environment"                                 = "${local.env}"
     "Keys:ApplicationInsights:InstrumentationKey" = "${local.appinsights_key}"
   }
   connection_string {

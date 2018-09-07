@@ -1,6 +1,7 @@
 using Microsoft.ApplicationInsights;
 using System;
 using System.Collections.Generic;
+using System.Web.Configuration;
 
 namespace PartsUnlimited.Utils
 {
@@ -11,7 +12,12 @@ namespace PartsUnlimited.Utils
         public TelemetryProvider()
         {
             AppInsights = new TelemetryClient();
-        }
+
+			// set global properties
+			AppInsights.Context.Properties["Environment"] = WebConfigurationManager.AppSettings["Environment"];
+			AppInsights.Context.Properties["SlotName"] = WebConfigurationManager.AppSettings["SlotName"];
+			AppInsights.Context.Properties["Version"] = typeof(TelemetryProvider).Assembly.GetName().Version.ToString();
+		}
 
         public void TrackEvent(string message)
         {
