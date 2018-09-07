@@ -20,7 +20,7 @@ namespace PartsUnlimited
 			// fl discount changes
             ConfigureAuth(app);
 
-            TelemetryConfiguration.Active.InstrumentationKey = WebConfigurationManager.AppSettings["APPINSIGHTS_INSTRUMENTATIONKEY"];
+            TelemetryConfiguration.Active.InstrumentationKey = WebConfigurationManager.AppSettings["Keys:ApplicationInsights:InstrumentationKey"];
 
         }
     }

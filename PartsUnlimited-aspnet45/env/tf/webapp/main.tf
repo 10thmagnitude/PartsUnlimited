@@ -126,7 +126,7 @@ resource "azurerm_app_service_slot" "slots" {
 
   app_settings {
     "SOME_KEY"                       = "${element(local.slots, count.index)}-value"
-    "APPINSIGHTS_INSTRUMENTATIONKEY" = "${local.appinsights_key}"
+    "Keys:ApplicationInsights:InstrumentationKey" = "${local.appinsights_key}"
   }
   connection_string {
     name  = "Default"
