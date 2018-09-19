@@ -52,6 +52,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="slot-Add-Oil-OilFilterCombo.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="slot-Add-Wheels-BluePerfAlloyRim.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="slot-Add-Batteries-SpiralCoil.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="slot-Add-Oil-SynthOil.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="slot-Add-Oil-FilterSet.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Add-Oil-SynthOil.webtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
