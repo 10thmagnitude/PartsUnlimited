@@ -2,6 +2,7 @@
 using PartsUnlimited.Models;
 using PartsUnlimited.ProductSearch;
 using PartsUnlimited.Recommendations;
+using PartsUnlimited.Telemetry;
 using PartsUnlimited.Utils;
 
 namespace PartsUnlimited
@@ -16,7 +17,7 @@ namespace PartsUnlimited
             container.RegisterType<IOrdersQuery, OrdersQuery>();
             container.RegisterType<IRaincheckQuery, RaincheckQuery>();
             container.RegisterType<IRecommendationEngine, AzureMLFrequentlyBoughtTogetherRecommendationEngine>();
-            container.RegisterType<ITelemetryProvider, TelemetryProvider>();
+            container.RegisterType<ITelemetryProvider, AppInsightsTelemetryProvider>();
             container.RegisterType<IProductSearch, StringContainsProductSearch>();
 
             container.RegisterInstance<IHttpClient>(container.Resolve<HttpClientWrapper>());

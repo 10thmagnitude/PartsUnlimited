@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PartsUnlimited.Recommendations;
+using PartsUnlimited.Telemetry;
 using PartsUnlimited.Utils;
 using System;
 using System.Collections.Generic;

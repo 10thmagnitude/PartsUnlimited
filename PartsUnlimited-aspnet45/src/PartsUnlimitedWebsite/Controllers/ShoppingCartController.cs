@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 using PartsUnlimited.Models;
+using PartsUnlimited.Telemetry;
 using PartsUnlimited.Utils;
 using PartsUnlimited.ViewModels;
 
