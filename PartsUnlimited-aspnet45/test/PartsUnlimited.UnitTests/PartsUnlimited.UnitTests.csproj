@@ -128,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Fakes Include="Fakes\PartsUnlimited.Telemetry.fakes" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
