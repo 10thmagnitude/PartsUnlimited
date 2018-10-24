@@ -2,6 +2,7 @@
 using Moq;
 using PartsUnlimited.Controllers;
 using PartsUnlimited.Models;
+using PartsUnlimited.Telemetry;
 using PartsUnlimited.UnitTests.Fakes;
 using PartsUnlimited.Utils;
 using PartsUnlimited.ViewModels;
@@ -9,14 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace PartsUnlimited.UnitTests.Controllers
 {
-    [TestClass]
+	[TestClass]
     public class OrdersControllerTests
     {
         [TestMethod]

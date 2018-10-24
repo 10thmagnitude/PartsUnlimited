@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PartsUnlimited.Models;
 using PartsUnlimited.ViewModels;
+using PartsUnlimited.Telemetry;
 
 namespace PartsUnlimited.Controllers
 {

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 using PartsUnlimited.Models;
+using PartsUnlimited.Telemetry;
 using PartsUnlimited.Utils;
 using PartsUnlimited.ViewModels;
 
@@ -83,9 +84,15 @@ namespace PartsUnlimited.Controllers
             // Trace add process
             var measurements = new Dictionary<string, double>()
             {
-                {"ElapsedMilliseconds", DateTime.Now.Subtract(startTime).TotalMilliseconds }
+                {"ElapsedMilliseconds", DateTime.Now.Subtract(startTime).TotalMilliseconds },
+                {"Price", (double)addedProduct.Price }
             };
-            telemetry.TrackEvent("Cart/Server/Add", null, measurements);
+			var properties = new Dictionary<string, string>()
+			{
+				{ "ProductCategory", addedProduct.Category.Name },
+				{ "Product", addedProduct.Title }
+			};
+            telemetry.TrackEvent("Cart/Server/Add", properties, measurements);
 
             // Go back to the main store page for more shopping
             return RedirectToAction("Index");

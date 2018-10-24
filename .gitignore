@@ -210,3 +210,16 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+#  Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+**/*.tfstate
+**/*.tfstate.*
+
+# .tfvars files
+**/backend.tfvars
+**/secrets.tfvars
+
+**/.vs/*
