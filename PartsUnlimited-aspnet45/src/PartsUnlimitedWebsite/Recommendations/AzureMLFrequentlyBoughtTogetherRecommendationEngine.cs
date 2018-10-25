@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using PartsUnlimited.Telemetry;
 using PartsUnlimited.Utils;
 
 namespace PartsUnlimited.Recommendations
