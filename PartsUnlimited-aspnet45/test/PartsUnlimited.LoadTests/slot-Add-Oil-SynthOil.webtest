@@ -2,16 +2,6 @@
 <WebTest Name="slot-Add-Oil-SynthOil" Id="fe1e4472-31bc-4825-9d8f-bd745d4f8f3b" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest2.a9d5b12c-f026-4c02-9507-306d3dacd544.rec.webtestresult" ResultsLocale="">
   <Items>
     <Request Method="GET" Guid="f3e613e4-ca7b-458f-a6a1-4496d46ae606" Version="1.1" Url="{{WebServer}}/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="False" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
-      <DependentRequests>
-        <Request Method="GET" Guid="dccb4572-04b0-4d5c-825a-9c7ed42e7945" Version="1.1" Url="{{WebServer}}/fonts/glyphicons-halflings-regular.eot" ThinkTime="2" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
-          <Headers>
-            <Header Name="Referer" Value="{{WebServer}}/" />
-          </Headers>
-          <QueryStringParameters>
-            <QueryStringParameter Name="" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
-          </QueryStringParameters>
-        </Request>
-      </DependentRequests>
       <CorrelationExtractionRules>
         <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="QueryStringParam1.CategoryId" DisplayName="" Description="">
           <RuleParameters>
@@ -64,7 +54,6 @@
     <ContextParameter Name="slot" Value="blue" />
   </ContextParameters>
   <ValidationRules>
-    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
       <RuleParameters>
         <RuleParameter Name="Tolerance" Value="0" />
