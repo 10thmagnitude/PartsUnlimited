@@ -131,7 +131,7 @@ resource "azurerm_app_service_slot" "slots" {
     "Keys:ApplicationInsights:InstrumentationKey" = "${local.appinsights_key}"
   }
   connection_string {
-    name  = "Default"
+    name  = "DefaultConnectionString"
     type  = "SQLServer"
     value = "${local.db_con_str}"
   }
