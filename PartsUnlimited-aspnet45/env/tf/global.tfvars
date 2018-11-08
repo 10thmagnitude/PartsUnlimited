@@ -13,8 +13,8 @@ environment = {
 
   prod = {
     location = "eastus"
-    db.edition = "Basic"
-    db.sku = "Basic"
+    db.edition = "Standard"
+    db.sku = "S1"
 
     webapp.tier = "Standard"
     webapp.sku = "S1"
