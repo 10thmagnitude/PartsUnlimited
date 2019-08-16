@@ -6,14 +6,47 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+- stage: build
+  displayName: Build and test source
+  jobs:
+  - job: build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: echo Hello, world!
+      displayName: 'Build the source'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+    - script: |
+        echo Add other tasks to build, test, and deploy your project.
+        echo See https://aka.ms/yaml
+      displayName: 'Run a multi-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- stage: dev
+  dependsOn: build
+  jobs:
+  - deployment: deploy-dev
+    displayName: Deploy to Dev
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: multitest-dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Hello, DEV!
+            displayName: 'Build the source'
+
+- stage: prod
+  jobs:
+  - deployment: deploy-prod
+    displayName: Deploy to Prod
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: multitest-prod
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Hello, PROD!
+            displayName: 'Build the source'
