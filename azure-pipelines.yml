@@ -25,7 +25,7 @@ stages:
 - stage: dev
   dependsOn: build
   jobs:
-  - deployment: deploy-dev
+  - deployment: deploy_dev
     displayName: Deploy to Dev
     pool:
       vmImage: 'ubuntu-latest'
@@ -40,7 +40,7 @@ stages:
 - stage: prod
   dependsOn: dev
   jobs:
-  - deployment: deploy-prod
+  - deployment: deploy_prod
     displayName: Deploy to Prod
     pool:
       vmImage: 'ubuntu-latest'
