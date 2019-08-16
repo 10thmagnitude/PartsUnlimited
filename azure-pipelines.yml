@@ -29,7 +29,7 @@ stages:
     displayName: Deploy to Dev
     pool:
       vmImage: 'ubuntu-latest'
-    environment: multitest-dev
+    environment: multi-dev
     strategy:
       runOnce:
         deploy:
@@ -38,12 +38,13 @@ stages:
             displayName: 'Build the source'
 
 - stage: prod
+  dependsOn: dev
   jobs:
   - deployment: deploy-prod
     displayName: Deploy to Prod
     pool:
       vmImage: 'ubuntu-latest'
-    environment: multitest-prod
+    environment: multi-prod
     strategy:
       runOnce:
         deploy:
