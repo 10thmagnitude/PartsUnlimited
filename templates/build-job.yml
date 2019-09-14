@@ -44,10 +44,11 @@ jobs:
         projectKey: '${{ parameters.sonarProjectKey }}'
         projectName: PartsUnlimited
         extraProperties: |
-        # Additional properties that will be passed to the scanner, 
-        # Put one key=value per line, example:
-        # sonar.exclusions=**/*.bin
-        sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
+          # Additional properties that will be passed to the scanner, 
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
+          
       #condition: and(succeeded(), eq(parameters.runSonar, 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: VSBuild@1
