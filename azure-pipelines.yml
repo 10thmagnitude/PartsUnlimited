@@ -22,7 +22,7 @@ stages:
     parameters:
       armAccessKey: '$(ARMAccessKey)'
       environment: 'PartsUnlimited-DEV'
-      rootPath: '$(System.DefaultWorkingDirectory)/infra/PartsUnlimited-aspnet45/env/tf'
+      rootPath: '$(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf'
 
   - template: templates/deploy-webapp-job.yml
     parameters:
