@@ -49,12 +49,9 @@ jobs:
         
         - ${{ each stack in parameters.stacks }}:
           - script: |
-              cat ../release.tfvars
-              cat ../backend.tfvars
-              echo "*********** Initialize backend"
-              echo "access_key = \"ARMACCESSKEY\"" > ../backend.tfvars
+              echo "access_key = \"$ARMACCESSKEY\"" > ../backend.tfvars
               $TFPATH/terraform init -backend-config=../backend.tfvars -no-color
-
+              echo "*********** Initialize backend"
               echo ""
               echo "*********** Create or select workspace"
               if [ $($TFPATH/terraform workspace list | grep $ENVIRONMENT | wc -l) -eq 0 ]; then
