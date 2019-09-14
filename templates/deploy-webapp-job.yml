@@ -38,7 +38,7 @@ jobs:
             azureSubscription: '${{ parameters.azureSub }}'
             ScriptType: InlineScript
             Inline: |
-              New-AzureRmResource -ResourceGroupName $WebApp -ResourceType Microsoft.Web/sites/Config -Name $WebApp/slotConfigNames -PropertyObject @{ appSettingNames = @("SlotName") } -ApiVersion 2015-08-01 -Force
+              New-AzResource -ResourceGroupName $WebApp -ResourceType Microsoft.Web/sites/Config -Name $WebApp/slotConfigNames -PropertyObject @{ appSettingNames = @("SlotName") } -ApiVersion 2015-08-01 -Force
             scriptArguments: '-WebApp ${{ parameters.webApp }}'
             azurePowerShellVersion: LatestVersion
         

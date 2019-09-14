@@ -74,6 +74,6 @@ jobs:
               TFPATH: '${{ parameters.tfPath}}'
               ENVIRONMENT: '$(System.StageName)'
               RELEASE: '$(Build.BuildNumber)'
-            displayName: 'Run terraform'
+            displayName: 'Run terraform in ${{ stack }}'
             workingDirectory: '${{ parameters.rootPath }}/${{ stack }}'
             failOnStderr: true
