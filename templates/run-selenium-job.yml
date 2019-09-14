@@ -1,0 +1,45 @@
+parameters:
+  dependsOn: 'deployWebApp'
+
+jobs:
+- job: runSelenium
+  dependsOn: ${{ parameters.dependsOn }}
+  displayName: Run Selenium Tests
+  pool:
+    name: 'CD-ACI'
+  variables:
+    artifactName: 'drop'
+    seleniumTestsPath: '$(System.DefaultWorkingDirectory)/$(artifactName)/PartsUnlimited-aspnet45/test/PartsUnlimited.NetCore.SeleniumTests'
+  steps:
+  - download: current
+    artifact: '$(artifactName)'
+  
+  - checkout: self
+    fetchDepth: 1
+
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk 2.1.3'
+    inputs:
+      version: 2.1.3
+  
+  - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
+    displayName: 'Replace tokens in $(seleniumTestsPath)'
+    inputs:
+      sourcePath: '$(seleniumTestsPath)'
+      filePattern: '*.runsettings'
+  
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet test'
+    inputs:
+      command: test
+      projects: '$(seleniumTestsPath)/PartsUnlimited.NetCore.SeleniumTests.csproj'
+      arguments: '-s seleniumTestsPath/release.runsettings --logger trx --results-directory $(Agent.TempDirectory)'
+      publishTestResults: false
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results **/*.trx'
+    inputs:
+      testResultsFormat: VSTest
+      testResultsFiles: '**/*.trx'
+      searchFolder: '$(Agent.TempDirectory)'
+      testRunTitle: 'Selenium Tests'

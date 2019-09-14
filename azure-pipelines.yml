@@ -12,20 +12,28 @@ stages:
       sonarUrl: '$(sonarUrl)'
       sonarToken: '$(sonarToken)'
 
-# - stage: dev
-#   dependsOn: build
-#   jobs:
-#   - deployment: deploy_dev
-#     displayName: Deploy to Dev
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     environment: multi-dev
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           - script: echo Hello, DEV!
-#             displayName: 'Build the source'
+- stage: dev
+  displayName: Deploy to DEV
+  dependsOn: build
+  variables:
+  - group: 'PartsUnlimited Terraform Secrets'
+  jobs:
+  - template: templates/terraform-job.yml
+    parameters:
+      armAccessKey: '$(ARMAccessKey)'
+      environment: 'PartsUnlimited-DEV'
+      rootPath: '$(System.DefaultWorkingDirectory)/infra/PartsUnlimited-aspnet45/env/tf'
+
+  - template: templates/deploy-webapp-job.yml
+    parameters:
+      environment: 'PartsUnlimited-DEV'
+      webAppRG: 'cd-pu2-dev-webapp'
+      webApp: 'cdpartsun2-dev'
+      azureSub: '10M Client Demo'
+      runQuickPerfTests: 'no'
+      vstsEndpoint: '10M VSTS'
+  
+  - template: templates/run-selenium.yml
 
 # - stage: prod
 #   dependsOn: dev
