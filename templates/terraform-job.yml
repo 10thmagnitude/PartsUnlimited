@@ -2,7 +2,7 @@ parameters:
   environment: ''
   armAccessKey: ''
   rgPrefix: ''
-  tfPath: '$HOME/tf'
+  tfPath: '$(Agent.TempDirectory)/tf'
   tfDownloadUrl: ''
   rootPath: ''
   stacks:
