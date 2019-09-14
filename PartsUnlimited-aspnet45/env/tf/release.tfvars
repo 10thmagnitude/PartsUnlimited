@@ -11,7 +11,7 @@ tenant_id = "__ARMTenantId__"
 rg_prefix = "__RGPrefix__"
 
 secrets = {
-  __Environment__ = {
+  __EnvironmentName__ = {
     sql_admin_password = "__SQLPassword__"
   }
 }

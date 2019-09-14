@@ -1,5 +1,8 @@
 name: 1.0.0$(Rev:.r)
 
+variables:
+  rgPrefix: cd-pu2
+
 stages:
 - stage: build
   displayName: Build and test sources
@@ -23,6 +26,7 @@ stages:
       armAccessKey: '$(ARMAccessKey)'
       environment: 'PartsUnlimited-DEV'
       rootPath: '$(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf'
+      rgPrefix: $(rgPrefix)
 
   - template: templates/deploy-webapp-job.yml
     parameters:

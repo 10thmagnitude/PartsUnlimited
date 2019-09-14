@@ -1,6 +1,7 @@
 parameters:
   environment: ''
   armAccessKey: ''
+  rgPrefix: ''
   tfPath: '$HOME/tf'
   rootPath: ''
   stacks:
@@ -15,6 +16,9 @@ jobs:
     vmImage: 'ubuntu-latest'
   environment:
     ${{ parameters.environment }}
+  variables:
+    RGPrefix: '${{ parameters.rgPrefix }}'
+    EnvironmentName: '$(System.StageName)'
   strategy:
     runOnce:
       deploy:
