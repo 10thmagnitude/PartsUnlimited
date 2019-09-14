@@ -49,8 +49,8 @@ jobs:
         
         - ${{ each stack in parameters.stacks }}:
           - script: |
-              echo "tfPath = $TFPATH"
-              ls -la $TFPATH
+              cat ../release.tfvars
+              cat ../backend.tfvars
               echo "*********** Initialize backend"
               echo "access_key = \"ARMACCESSKEY\"" > ../backend.tfvars
               $TFPATH/terraform init -backend-config=../backend.tfvars -no-color
