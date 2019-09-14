@@ -40,7 +40,7 @@ jobs:
             $TFPATH/terraform -version
           env:
             TFPATH: '${{ parameters.tfPath}}'
-            TFURL: '${{ paramaters.tfDownloadUrl }}'
+            TFURL: '${{ parameters.tfDownloadUrl }}'
           displayName: 'Download terraform'
         
         - ${{ each stack in parameters.stacks }}:
