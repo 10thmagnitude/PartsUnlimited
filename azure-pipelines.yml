@@ -31,7 +31,7 @@ stages:
   - template: templates/deploy-webapp-job.yml
     parameters:
       environment: 'PartsUnlimited-DEV'
-      webAppRG: 'cd-pu2-dev-webapp'
+      webAppRG: '$(RGPrefix)-dev-webapp'
       webApp: 'cdpartsun2-dev'
       azureSub: '10M Client Demo'
       runQuickPerfTests: 'no'

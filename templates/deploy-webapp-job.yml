@@ -38,8 +38,7 @@ jobs:
             azureSubscription: '${{ parameters.azureSub }}'
             ScriptType: InlineScript
             Inline: |
-              New-AzResource -ResourceGroupName $WebApp -ResourceType Microsoft.Web/sites/Config -Name $WebApp/slotConfigNames -PropertyObject @{ appSettingNames = @("SlotName") } -ApiVersion 2015-08-01 -Force
-            scriptArguments: '-WebApp ${{ parameters.webApp }}'
+              New-AzResource -ResourceGroupName ${{ parameters.webAppRG }} -ResourceType Microsoft.Web/sites/Config -Name ${{ parameters.webApp }}/slotConfigNames -PropertyObject @{ appSettingNames = @("SlotName") } -ApiVersion 2015-08-01 -Force
             azurePowerShellVersion: LatestVersion
         
         - ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
