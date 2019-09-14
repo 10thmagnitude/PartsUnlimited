@@ -3,6 +3,7 @@ parameters:
   armAccessKey: ''
   rgPrefix: ''
   tfPath: '$HOME/tf'
+  tfDownloadUrl: ''
   rootPath: ''
   stacks:
   - sql

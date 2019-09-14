@@ -27,6 +27,7 @@ stages:
       environment: 'PartsUnlimited-DEV'
       rootPath: '$(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf'
       rgPrefix: $(rgPrefix)
+      tfDownloadUrl: 'https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip'
 
   - template: templates/deploy-webapp-job.yml
     parameters:
