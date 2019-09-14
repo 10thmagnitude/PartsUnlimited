@@ -31,9 +31,9 @@ jobs:
         - script: |
             if [ ! -f $TFPATH/terraform ]; then
               echo "Downloading terraform from $TFURL to $TFPATH"
-              curl TFURL -o terraform.zip
-              mkdir -p TFPATH
-              unzip terraform.zip -d TFPATH
+              curl $TFURL -o terraform.zip
+              mkdir -p $TFPATH
+              unzip terraform.zip -d $TFPATH
             else
               echo "Terraform already exists in $TFPATH"
             fi
