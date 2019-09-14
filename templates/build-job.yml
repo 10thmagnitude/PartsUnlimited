@@ -103,7 +103,7 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Copy test bins to: $(build.artifactstagingdirectory)/loadtest'
     inputs:
-      SourceFolder: 'PartsUnlimited-aspnet45/test/PartsUnlimited.LoadTests/bin/$(BuildConfiguration)'
+      SourceFolder: 'PartsUnlimited-aspnet45/test/PartsUnlimited.LoadTests/bin/${{ parameters.buildConfiguration }}'
       TargetFolder: '$(build.artifactstagingdirectory)/loadtest'
 
   - task: CopyFiles@2
@@ -117,4 +117,4 @@ jobs:
     displayName: 'Publish Artifact'
     inputs:
       targetPath: '$(build.artifactstagingdirectory)'
-      articat: '${{ parameters.artifactName }}'
+      ArtifactName: '${{ parameters.artifactName }}'
