@@ -1,8 +1,5 @@
 name: 1.0.0$(Rev:.r)
 
-trigger:
-- master
-
 stages:
 - stage: build
   displayName: Build and test sources
