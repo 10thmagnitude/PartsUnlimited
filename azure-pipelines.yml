@@ -33,7 +33,7 @@ stages:
       runQuickPerfTests: 'no'
       vstsEndpoint: '10M VSTS'
   
-  - template: templates/run-selenium.yml
+  - template: templates/run-selenium-job.yml
 
 # - stage: prod
 #   dependsOn: dev
