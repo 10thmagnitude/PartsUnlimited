@@ -18,7 +18,6 @@ jobs:
   environment:
     ${{ parameters.environment }}
   variables:
-    RGPrefix: '${{ parameters.rgPrefix }}'
     EnvironmentName: '$(System.StageName)'
   strategy:
     runOnce:
@@ -50,6 +49,8 @@ jobs:
         
         - ${{ each stack in parameters.stacks }}:
           - script: |
+              echo "tfPath = $TFPATH"
+              ls -la $TFPATH
               echo "*********** Initialize backend"
               echo "access_key = \"ARMACCESSKEY\"" > ../backend.tfvars
               $TFPATH/terraform init -backend-config=../backend.tfvars -no-color

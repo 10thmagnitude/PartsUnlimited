@@ -1,7 +1,7 @@
 name: 1.0.0$(Rev:.r)
 
 variables:
-  rgPrefix: cd-pu2
+  RGPrefix: cd-pu2
 
 stages:
 - stage: build
@@ -26,7 +26,6 @@ stages:
       armAccessKey: '$(ARMAccessKey)'
       environment: 'PartsUnlimited-DEV'
       rootPath: '$(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf'
-      rgPrefix: $(rgPrefix)
       tfDownloadUrl: 'https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip'
 
   - template: templates/deploy-webapp-job.yml
