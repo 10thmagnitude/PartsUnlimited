@@ -1,53 +1,44 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
 stages:
 - stage: build
-  displayName: Build and test source
+  displayName: Build and test sources
   jobs:
-  - job: build
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - script: echo Hello, world!
-      displayName: 'Build the source'
+  - template: templates/build-job.yml
+    parameters:
+      packageFeed: ''
+      runSonar: '$(runSonar)'
+      sonarProjectKey: 'PartsUnlimited'
+      sonarUrl: '$(sonarUrl)'
+      sonarToken: '$(sonarToken)'
 
-    - script: |
-        echo Add other tasks to build, test, and deploy your project.
-        echo See https://aka.ms/yaml
-      displayName: 'Run a multi-line script'
+# - stage: dev
+#   dependsOn: build
+#   jobs:
+#   - deployment: deploy_dev
+#     displayName: Deploy to Dev
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     environment: multi-dev
+#     strategy:
+#       runOnce:
+#         deploy:
+#           steps:
+#           - script: echo Hello, DEV!
+#             displayName: 'Build the source'
 
-- stage: dev
-  dependsOn: build
-  jobs:
-  - deployment: deploy_dev
-    displayName: Deploy to Dev
-    pool:
-      vmImage: 'ubuntu-latest'
-    environment: multi-dev
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - script: echo Hello, DEV!
-            displayName: 'Build the source'
-
-- stage: prod
-  dependsOn: dev
-  jobs:
-  - deployment: deploy_prod
-    displayName: Deploy to Prod
-    pool:
-      vmImage: 'ubuntu-latest'
-    environment: multi-prod
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - script: echo Hello, PROD!
-            displayName: 'Build the source'
+# - stage: prod
+#   dependsOn: dev
+#   jobs:
+#   - deployment: deploy_prod
+#     displayName: Deploy to Prod
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     environment: multi-prod
+#     strategy:
+#       runOnce:
+#         deploy:
+#           steps:
+#           - script: echo Hello, PROD!
+#             displayName: 'Build the source'
