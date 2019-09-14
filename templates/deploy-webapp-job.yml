@@ -15,7 +15,7 @@ jobs:
     vmImage: 'windows-latest'
   variables:
     artifactName: drop
-    package: '$(System.DefaultWorkingDirectory)/$(artifactName)/PartsUnlimitedWebsite.zip'
+    package: '$(Pipeline.Workspace)/$(artifactName)/PartsUnlimitedWebsite.zip'
   environment:
     ${{ parameters.environment }}
   strategy:
