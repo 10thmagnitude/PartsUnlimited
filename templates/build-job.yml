@@ -36,7 +36,7 @@ jobs:
     inputs:
       sourcePath: 'PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite'
 
-  - ${{ if and(succeeded(), eq(parameters.runSonar, 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/master')) }}:
+  - ${{ if eq(parameters.runSonar, 'true') }}:
     - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
       displayName: 'Prepare analysis on SonarQube'
       inputs:
@@ -48,8 +48,7 @@ jobs:
           # Put one key=value per line, example:
           # sonar.exclusions=**/*.bin
           sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
-          
-      #condition: and(succeeded(), eq(parameters.runSonar, 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: VSBuild@1
     displayName: 'Build solution'
@@ -70,14 +69,14 @@ jobs:
       configuration: '${{ parameters.buildConfiguration }}'
       diagnosticsEnabled: True
 
-  - ${{ if and(succeeded(), eq(parameters.runSonar, 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/master')) }}:
+  - ${{ if eq(parameters.runSonar, 'true') }}:
     - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
       displayName: 'Run Code Analysis'
-      #condition: and(succeeded(), eq(variables['RunSonar'], 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - task: SonarSource.sonarqube.291ed61f-1ee4-45d3-b1b0-bf822d9095ef.SonarQubePublish@4
       displayName: 'Publish Quality Gate Result'
-      #condition: and(succeeded(), eq(variables['RunSonar'], 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - powershell: |
         $token = [System.Text.Encoding]::UTF8.GetBytes("$(SonarToken)" + ":")
@@ -99,7 +98,7 @@ jobs:
       env:
         SonarToken: '{{ parameters.sonarToken }}'
         SonarUrl: '{{ parameters.sonarUrl }}'
-      #condition: and(succeeded(), eq(variables['RunSonar'], 'true'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: CopyFiles@2
     displayName: 'Copy test bins to: $(build.artifactstagingdirectory)/loadtest'
