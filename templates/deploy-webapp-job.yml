@@ -3,7 +3,6 @@ parameters:
   webAppRG: ''
   webApp: ''
   azureSub: ''
-  runQuickPerfTests: 'no'
   vstsEndpoint: ''
   dependsOn: 'runTerraform'
 
