@@ -62,12 +62,14 @@ jobs:
     displayName: 'Test Assemblies'
     inputs:
       testAssemblyVer2: |
-        **\{{ parameters.buildConfiguration }}\*unittest*.dll
+        **\*unittest*.dll
+        !**\*TestAdapter.dll
         !**\obj\**
       codeCoverageEnabled: true
       platform: '${{ parameters.buildPlatform }}'
       configuration: '${{ parameters.buildConfiguration }}'
       diagnosticsEnabled: True
+      searchFolder: '$(System.DefaultWorkingDirectory)'
 
   - ${{ if eq(parameters.runSonar, 'true') }}:
     - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4

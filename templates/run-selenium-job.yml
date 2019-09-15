@@ -43,3 +43,5 @@ jobs:
       testResultsFiles: '**/*.trx'
       searchFolder: '$(Agent.TempDirectory)'
       testRunTitle: 'Selenium Tests (${{ parameters.browser }})'
+    condition: always()
+    continueOnError: true
