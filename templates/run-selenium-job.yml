@@ -36,6 +36,7 @@ jobs:
       projects: '$(seleniumTestsPath)/PartsUnlimited.NetCore.SeleniumTests.csproj'
       arguments: '-s $(seleniumTestsPath)/release.runsettings --logger trx --results-directory $(Agent.TempDirectory)'
       publishTestResults: false
+    continueOnError: true
   
   - task: PublishTestResults@2
     displayName: 'Publish Test Results **/*.trx'

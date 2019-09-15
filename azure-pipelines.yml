@@ -35,7 +35,7 @@ stages:
       webAppRG: '$(RGPrefix)-dev-webapp'
       webApp: '$(WebAppPrefix)-dev'
       azureSub: '10M Client Demo'
-      runQuickPerfTests: 'no'
+      runQuickPerfTests: '$(RunQuickPerfTests)'
       vstsEndpoint: '10M VSTS'
   
   - template: templates/run-selenium-job.yml
