@@ -54,7 +54,7 @@ jobs:
                   PRINT "deleting CartItems (> 1000)"
                   DELETE FROM CartItems;
                 END
-            ServerName: 'cdpusql-$(System.StageName)'
+            ServerName: 'cdpusql$(System.StageName).database.windows.net'
             DatabaseName: 'PartsUnlimited'
             AuthScheme: 'sqlServerAuthentication'
             SqlUsername: 'tfadmin'
