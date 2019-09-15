@@ -2,7 +2,7 @@ name: 1.0.0$(Rev:.r)
 
 variables:
   RGPrefix: cd-pu2
-  WebAppPrefix: cd-partsun2
+  WebAppPrefix: cdpartsun2
 
 stages:
 - stage: build
