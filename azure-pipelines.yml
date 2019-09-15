@@ -39,6 +39,8 @@ stages:
       vstsEndpoint: '10M VSTS'
   
   - template: templates/run-selenium-job.yml
+    parameters:
+      baseUrl: 'http://$(WebAppPrefix)-dev.azurewebsites.net'
 
 # - stage: prod
 #   dependsOn: dev

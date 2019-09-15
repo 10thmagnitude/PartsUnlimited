@@ -1,7 +1,6 @@
 parameters:
   dependsOn: 'deployWebApp'
   browser: 'Chrome'
-  baseUrl: 'http://$(WebApp).azurewebsites.net'
 
 jobs:
 - job: runSelenium
