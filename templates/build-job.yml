@@ -4,7 +4,6 @@ parameters:
   buildConfiguration: 'release'
   artifactName: 'drop'
   packageFeed: ''
-  runSonar: 'false'
   sonarProjectKey: 'PartsUnlimited'
   sonarUrl: ''
   sonarToken: ''
@@ -36,7 +35,9 @@ jobs:
     inputs:
       sourcePath: 'PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite'
 
-  ${{ if eq(parameters.runSonar, 'true') }}:
+  - script: echo ${{ parameters.runSonar }}
+
+  - ${{ if eq(parameters.runSonar, 'true') }}:
     - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
       displayName: 'Prepare analysis on SonarQube'
       inputs:
