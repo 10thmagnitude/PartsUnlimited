@@ -4,6 +4,7 @@ parameters:
   buildConfiguration: 'release'
   artifactName: 'drop'
   packageFeed: ''
+  runSonar: 'no'
   sonarProjectKey: 'PartsUnlimited'
   sonarUrl: ''
   sonarToken: ''
@@ -72,7 +73,7 @@ jobs:
       diagnosticsEnabled: True
       searchFolder: '$(System.DefaultWorkingDirectory)'
 
-  - ${{ if eq(parameters.runSonar, 'true') }}:
+  - ${{ if eq(parameters.runSonar, 'yes') }}:
     - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
       displayName: 'Run Code Analysis'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))

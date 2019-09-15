@@ -5,6 +5,7 @@ parameters:
   azureSub: ''
   vstsEndpoint: ''
   dependsOn: 'runTerraform'
+  runQuickPerfTests: 'no'
 
 jobs:
 - deployment: deployWebApp
