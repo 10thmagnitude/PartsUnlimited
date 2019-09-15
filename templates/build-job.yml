@@ -38,7 +38,7 @@ jobs:
 
   - script: echo ${{ parameters.runSonar }}
 
-  - ${{ if eq(parameters.runSonar, 'true') }}:
+  - ${{ if eq(variables['RunSonar'], 'yes') }}:
     - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
       displayName: 'Prepare analysis on SonarQube'
       inputs:
@@ -73,7 +73,7 @@ jobs:
       diagnosticsEnabled: True
       searchFolder: '$(System.DefaultWorkingDirectory)'
 
-  - ${{ if eq(parameters.runSonar, 'yes') }}:
+  - ${{ if eq(variables['RunSonar'], 'yes') }}:
     - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
       displayName: 'Run Code Analysis'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
