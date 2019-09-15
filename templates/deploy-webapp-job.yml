@@ -5,7 +5,7 @@ parameters:
   azureSub: ''
   vstsEndpoint: ''
   dependsOn: 'runTerraform'
-  runQuickPerfTests: 'no'
+  runQuickPerfTests: ''
 
 jobs:
 - deployment: deployWebApp
@@ -60,7 +60,7 @@ jobs:
         
         - script: echo ${{ parameters.runQuickPerfTests }}
 
-        - ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
+        - ${{ if ne(parameters.runQuickPerfTests, 'no') }}:
           - task: QuickPerfTest@1
             displayName: 'Quick Web Performance Test PartsUnlimited-$(System.StageName)'
             inputs:
