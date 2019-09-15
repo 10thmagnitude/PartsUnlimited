@@ -28,6 +28,8 @@ jobs:
       sourcePath: '$(seleniumTestsPath)'
       filePattern: '*.runsettings'
   
+  - script: cat /vsts/agent/_work/1/s/PartsUnlimited-aspnet45/test/PartsUnlimited.NetCore.SeleniumTests/release.runsettings
+  
   - task: DotNetCoreCLI@2
     displayName: 'dotnet test'
     inputs:
