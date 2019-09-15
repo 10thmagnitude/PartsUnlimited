@@ -57,7 +57,7 @@ jobs:
             SqlUsername: 'tfadmin'
             SqlPassword: '$(SQLPassword)'
         
-        - ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
+        ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
           - task: QuickPerfTest@1
             displayName: 'Quick Web Performance Test PartsUnlimited-$(System.StageName)'
             inputs:
