@@ -33,7 +33,7 @@ jobs:
     inputs:
       command: test
       projects: '$(seleniumTestsPath)/PartsUnlimited.NetCore.SeleniumTests.csproj'
-      arguments: '-s seleniumTestsPath/release.runsettings --logger trx --results-directory $(Agent.TempDirectory)'
+      arguments: '-s $(seleniumTestsPath)/release.runsettings --logger trx --results-directory $(Agent.TempDirectory)'
       publishTestResults: false
   
   - task: PublishTestResults@2
