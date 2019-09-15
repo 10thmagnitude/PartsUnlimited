@@ -9,7 +9,7 @@ jobs:
     name: 'CD-ACI'
   variables:
     artifactName: 'drop'
-    seleniumTestsPath: '$(System.DefaultWorkingDirectory)/$(artifactName)/PartsUnlimited-aspnet45/test/PartsUnlimited.NetCore.SeleniumTests'
+    seleniumTestsPath: '$(Pipeline.Workspace)/$(artifactName)/PartsUnlimited-aspnet45/test/PartsUnlimited.NetCore.SeleniumTests'
   steps:
   - download: current
     artifact: '$(artifactName)'
