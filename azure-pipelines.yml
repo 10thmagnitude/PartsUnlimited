@@ -2,6 +2,7 @@ name: 1.0.0$(Rev:.r)
 
 variables:
   RGPrefix: cd-pu2
+  WebAppPrefix: cd-partsun2
 
 stages:
 - stage: build
@@ -32,7 +33,7 @@ stages:
     parameters:
       environment: 'PartsUnlimited-DEV'
       webAppRG: '$(RGPrefix)-dev-webapp'
-      webApp: 'cdpartsun2-dev'
+      webApp: '$(WebAppPrefix)-dev'
       azureSub: '10M Client Demo'
       runQuickPerfTests: 'no'
       vstsEndpoint: '10M VSTS'

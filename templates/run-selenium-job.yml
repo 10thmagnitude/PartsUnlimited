@@ -1,5 +1,7 @@
 parameters:
   dependsOn: 'deployWebApp'
+  browser: 'Chrome'
+  baseUrl: 'http://$(WebApp).azurewebsites.net'
 
 jobs:
 - job: runSelenium
@@ -9,6 +11,8 @@ jobs:
     name: 'CD-ACI'
   variables:
     seleniumTestsPath: '$(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/test/PartsUnlimited.NetCore.SeleniumTests'
+    BaseUrl: '${{ parameters.baseUrl }}'
+    Browser: '${{ parameters.browser }}'
   steps:
   - checkout: self
     fetchDepth: 1
@@ -38,4 +42,4 @@ jobs:
       testResultsFormat: VSTest
       testResultsFiles: '**/*.trx'
       searchFolder: '$(Agent.TempDirectory)'
-      testRunTitle: 'Selenium Tests'
+      testRunTitle: 'Selenium Tests (${{ parameters.browser }})'
