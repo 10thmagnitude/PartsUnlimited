@@ -36,9 +36,9 @@ jobs:
     inputs:
       sourcePath: 'PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite'
 
-  - script: echo ${{ parameters.runSonar }}
+  - script: 'echo "RunSonar = [${{ parameters.runSonar }}]'
 
-  - ${{ if ne(parameters.runSonar, 'no') }}:
+  - ${{ if eq(parameters.runSonar, 'yes') }}:
     - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
       displayName: 'Prepare analysis on SonarQube'
       inputs:
@@ -73,7 +73,7 @@ jobs:
       diagnosticsEnabled: True
       searchFolder: '$(System.DefaultWorkingDirectory)'
 
-  - ${{ if ne(parameters.runSonar, 'no') }}:
+  - ${{ if eq(parameters.runSonar, 'yes') }}:
     - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
       displayName: 'Run Code Analysis'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))

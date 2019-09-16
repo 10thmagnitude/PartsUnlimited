@@ -5,7 +5,7 @@ parameters:
   azureSub: ''
   vstsEndpoint: ''
   dependsOn: 'runTerraform'
-  runQuickPerfTests: ''
+  runQuickPerfTests: 'no'
 
 jobs:
 - deployment: deployWebApp
@@ -58,9 +58,9 @@ jobs:
             SqlUsername: 'tfadmin'
             SqlPassword: '$(SQLPassword)'
         
-        - script: echo ${{ parameters.runQuickPerfTests }}
+        - script: 'echo "RunQuickPerfTests = [${{ parameters.runQuickPerfTests }}]"'
 
-        - ${{ if ne(parameters.runQuickPerfTests, 'no') }}:
+        - ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
           - task: QuickPerfTest@1
             displayName: 'Quick Web Performance Test PartsUnlimited-$(System.StageName)'
             inputs:
@@ -69,3 +69,4 @@ jobs:
               testName: 'PartsUnlimited-$(System.StageName)'
               avgResponseTimeThreshold: 300
             condition: succeeded()
+            continueOnError: true
