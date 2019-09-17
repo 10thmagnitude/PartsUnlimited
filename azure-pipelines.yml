@@ -20,38 +20,38 @@ stages:
       sonarProjectKey: PartsUnlimited
       runSonar: yes
 
-# - stage: dev
-#   displayName: Deploy to DEV
-#   dependsOn: build
-#   variables:
-#   - group: PartsUnlimited Terraform Secrets
-#   jobs:
-#   - template: templates/terraform-job.yml
-#     parameters:
-#       armAccessKey: $(ARMAccessKey)
-#       environment: PartsUnlimited-DEV
-#       logicalEnvironment: dev
-#       rootPath: $(RootTFPath)
-#       tfDownloadUrl: $(TFDownloadURL)
+- stage: dev
+  displayName: Deploy to DEV
+  dependsOn: build
+  variables:
+  - group: PartsUnlimited Terraform Secrets
+  jobs:
+  - template: templates/terraform-job.yml
+    parameters:
+      armAccessKey: $(ARMAccessKey)
+      environment: PartsUnlimited-DEV
+      logicalEnvironment: dev
+      rootPath: $(RootTFPath)
+      tfDownloadUrl: $(TFDownloadURL)
 
-#   - template: templates/deploy-webapp-job.yml
-#     parameters:
-#       environment: PartsUnlimited-DEV
-#       logicalEnvironment: dev
-#       webAppRG: $(RGPrefix)-dev-webapp
-#       webApp: $(WebAppPrefix)-dev
-#       azureSub: $(AzureSubscription)
-#       runQuickPerfTests: yes
-#       vstsEndpoint: $(VSTSEndpoint)
+  - template: templates/deploy-webapp-job.yml
+    parameters:
+      environment: PartsUnlimited-DEV
+      logicalEnvironment: dev
+      webAppRG: $(RGPrefix)-dev-webapp
+      webApp: $(WebAppPrefix)-dev
+      azureSub: $(AzureSubscription)
+      runQuickPerfTests: yes
+      vstsEndpoint: $(VSTSEndpoint)
   
-#   - template: templates/run-selenium-job.yml
-#     parameters:
-#       baseUrl: http://$(WebAppPrefix)-dev.azurewebsites.net
-#       runUITests: yes
+  - template: templates/run-selenium-job.yml
+    parameters:
+      baseUrl: http://$(WebAppPrefix)-dev.azurewebsites.net
+      runUITests: yes
 
 - stage: prod_blue
   displayName: Canary Deployment to PROD (blue)
-  dependsOn: build
+  dependsOn: dev
   variables:
   - group: PartsUnlimited Terraform Secrets
   jobs:
