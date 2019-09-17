@@ -3,11 +3,11 @@ parameters:
   environment: ''
   webAppRG: ''
   webApp: ''
-  runLoadTests: no
   vstsEndpoint: ''
   azureSub: ''
   slot: blue
   percentageToRoute: 20
+  runLoadTests: no
 
 jobs:
 - deployment: routeTraffic
