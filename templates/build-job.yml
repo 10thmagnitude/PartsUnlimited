@@ -36,7 +36,7 @@ jobs:
     inputs:
       sourcePath: 'PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite'
 
-  - script: 'echo "RunSonar = [${{ parameters.runSonar }}]'
+  - script: 'echo "RunSonar = [${{ parameters.runSonar }}]"'
 
   - ${{ if eq(parameters.runSonar, 'yes') }}:
     - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4

@@ -93,6 +93,7 @@ stages:
       azureSub: '$(AzureSubscription)'
       webAppRG: '$(RGPrefix)-prod-webapp'
       webApp: '$(WebAppPrefix)-prod'
+      vstsEndpoint: '$(VSTSEndpoint)'
       swapSlots: true
       slot: 'blue'
       percentageToRoute: 0

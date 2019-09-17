@@ -4,12 +4,14 @@ parameters:
   webAppRG: ''
   webApp: ''
   runLoadTests: 'no'
+  vstsEndpoint: ''
   azureSub: ''
   slot: 'blue'
   percentageToRoute: 20
 
 jobs:
 - deployment: routeTraffic
+  displayName: Deploy and Route Traffic to slot
   dependsOn: ${{ parameters.dependsOn }}
   variables:
     - name: artifactName
