@@ -3,7 +3,7 @@ parameters:
   environment: ''
   webAppRG: ''
   webApp: ''
-  runLoadTests: 'no'
+  runLoadTests: no
   vstsEndpoint: ''
   azureSub: ''
   slot: blue

@@ -6,7 +6,6 @@ parameters:
   sonarProjectKey: ''
   runSonar: no
   sonarUrl: 'http://localhost:9000'
-  sonarToken: ''
 
 jobs:
 - job: Build
@@ -35,19 +34,19 @@ jobs:
     inputs:
       sourcePath: PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite
 
-  #- ${{ if eq(parameters.runSonar, 'yes') }}:
-  - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
-    displayName: Prepare analysis on SonarQube
-    inputs:
-      SonarQube: https://cd-pu2-sqube.centralus.cloudapp.azure.com/
-      projectKey: ${{ parameters.sonarProjectKey }}
-      projectName: PartsUnlimited
-      extraProperties: |
-        # Additional properties that will be passed to the scanner, 
-        # Put one key=value per line, example:
-        # sonar.exclusions=**/*.bin
-        sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
-    condition: and(succeeded(), eq('${{ parameters.runSonar }}', 'yes'))
+  - ${{ if eq(parameters.runSonar, 'yes') }}:
+    - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
+      displayName: Prepare analysis on SonarQube
+      inputs:
+        SonarQube: https://cd-pu2-sqube.centralus.cloudapp.azure.com/
+        projectKey: ${{ parameters.sonarProjectKey }}
+        projectName: PartsUnlimited
+        extraProperties: |
+          # Additional properties that will be passed to the scanner, 
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
+      condition: succeeded()
 
   - task: VSBuild@1
     displayName: Build solution
@@ -80,7 +79,7 @@ jobs:
       condition: succeeded()
 
     - powershell: |
-        $token = [System.Text.Encoding]::UTF8.GetBytes("$(SonarToken)" + ":")
+        $token = [System.Text.Encoding]::UTF8.GetBytes("$(sonarToken)" + ":")
         $base64 = [System.Convert]::ToBase64String($token)
           
         $basicAuth = [string]::Format("Basic {0}", $base64)
@@ -97,7 +96,6 @@ jobs:
       failOnStderr: true
       displayName: Check SonarQube Quality Gate
       env:
-        SonarToken: ${{ parameters.sonarToken }}
         SonarUrl: ${{ parameters.sonarUrl }}
       condition: succeeded()
 

@@ -15,9 +15,8 @@ stages:
   - template: templates/build-job.yml
     parameters:
       packageFeed: 7934b660-3831-4640-a3c9-a0fa7aa6d068
-      runSonar: '$(RunSonar)'
       sonarProjectKey: PartsUnlimited
-      sonarToken: $(sonarToken)
+      runSonar: yes
 
 - stage: dev
   displayName: Deploy to DEV
@@ -40,13 +39,13 @@ stages:
       webAppRG: $(RGPrefix)-dev-webapp
       webApp: $(WebAppPrefix)-dev
       azureSub: $(AzureSubscription)
-      runQuickPerfTests: $(RunLoadTests)
+      runQuickPerfTests: yes
       vstsEndpoint: $(VSTSEndpoint)
   
   - template: templates/run-selenium-job.yml
     parameters:
       baseUrl: http://$(WebAppPrefix)-dev.azurewebsites.net
-      runUITests: $(RunUITests)
+      runUITests: yes
 
 - stage: prod_blue
   displayName: Canary Deployment to PROD (blue)
@@ -69,7 +68,7 @@ stages:
       webAppRG: $(RGPrefix)-dev-webapp
       webApp: $(WebAppPrefix)-dev
       azureSub: $(AzureSubscription)
-      runQuickPerfTests: $(RunLoadTests)
+      runQuickPerfTests: yes
       vstsEndpoint: $(VSTSEndpoint)
   
   - template: templates/deploy-and-route-job.yml
@@ -79,7 +78,7 @@ stages:
       azureSub: $(AzureSubscription)
       webAppRG: $(RGPrefix)-prod-webapp
       webApp: $(WebAppPrefix)-prod
-      runLoadTests: $(RunLoadTests)
+      runLoadTests: yes
       slot: blue
       percentageToRoute: 20
 
