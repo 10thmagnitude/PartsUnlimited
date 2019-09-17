@@ -111,7 +111,7 @@ jobs:
       TargetFolder: $(build.artifactstagingdirectory)/loadtest
 
   - task: CopyFiles@2
-    displayName: Copy test settings to: staging/loadtest
+    displayName: 'Copy test settings to: staging/loadtest'
     inputs:
       SourceFolder: PartsUnlimited-aspnet45
       Contents: '*.testsettings'
