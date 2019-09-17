@@ -15,6 +15,7 @@ stages:
   - template: templates/build-job.yml
     parameters:
       packageFeed: 7934b660-3831-4640-a3c9-a0fa7aa6d068
+      sonarUrl: https://cd-pu2-sqube.centralus.cloudapp.azure.com/
       sonarProjectKey: PartsUnlimited
       runSonar: yes
 
