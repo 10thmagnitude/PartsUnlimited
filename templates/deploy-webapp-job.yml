@@ -45,7 +45,7 @@ jobs:
         - task: SqlAzureDacpacDeployment@1
           displayName: 'Clean SQL for load testing'
           inputs:
-            azureSubscription: '$(AzureSubscription)'
+            azureSubscription: '${{ parameters.azureSub }}'
             ServerName: 'cdpusql${{ parameters.logicalEnvironment }}.database.windows.net'
             DatabaseName: PartsUnlimited
             SqlUsername: tfadmin
