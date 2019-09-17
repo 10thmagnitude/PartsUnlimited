@@ -29,7 +29,7 @@ jobs:
               SourceSlot: ${{ parameters.slot }}
 
         - task: colinsalmcorner.colinsalmcorner-buildtasks.route-traffic-task.azureWebAppRouteTraffic@0
-          displayName: Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}
+          displayName: 'Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}'
           inputs:
             ConnectedServiceName: ${{ parameters.azureSub }}
             WebAppName: ${{ parameters.webApp }}
