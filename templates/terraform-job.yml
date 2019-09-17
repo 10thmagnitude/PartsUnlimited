@@ -73,7 +73,7 @@ jobs:
             env:
               ARMACCESSKEY: '${{ parameters.armAccessKey}}'
               TFPATH: '${{ parameters.tfPath}}'
-              ENVIRONMENT: '$(System.StageName)'
+              ENVIRONMENT: '{{ parameters.logicalEnvironment }}'
               RELEASE: '$(Build.BuildNumber)'
             displayName: 'Run terraform in ${{ stack }}'
             workingDirectory: '${{ parameters.rootPath }}/${{ stack }}'
