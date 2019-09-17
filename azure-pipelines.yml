@@ -67,8 +67,8 @@ stages:
     parameters:
       environment: PartsUnlimited-PROD
       logicalEnvironment: prod
-      webAppRG: $(RGPrefix)-dev-webapp
-      webApp: $(WebAppPrefix)-dev
+      webAppRG: $(RGPrefix)-prod-webapp
+      webApp: $(WebAppPrefix)-prod
       azureSub: $(AzureSubscription)
       runQuickPerfTests: yes
       vstsEndpoint: $(VSTSEndpoint)
