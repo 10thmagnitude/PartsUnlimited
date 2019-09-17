@@ -83,7 +83,7 @@ stages:
   displayName: Full deployment to PROD (green)
   dependsOn: prod-blue
   jobs:
-  - template: tempates/swap-and-route-job.yml
+  - template: templates/swap-and-route-job.yml
     parameters:
       environment: 'PartsUnlimited-PROD'
       azureSub: '$(AzureSubscription)'
@@ -97,7 +97,7 @@ stages:
   displayName: Rollback of PROD
   dependsOn: prod-blue
   jobs:
-  - template: tempates/swap-and-route-job.yml
+  - template: templates/swap-and-route-job.yml
     parameters:
       environment: 'PartsUnlimited-PROD'
       azureSub: '$(AzureSubscription)'
