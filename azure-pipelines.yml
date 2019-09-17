@@ -58,7 +58,7 @@ stages:
   - template: templates/terraform-job.yml
     parameters:
       armAccessKey: $(ARMAccessKey)
-      environment: PartsUnlimited-PROD-blue
+      environment: PartsUnlimited-PROD
       logicalEnvironment: prod
       rootPath: $(RootTFPath)
       tfDownloadUrl: $(TFDownloadURL)
