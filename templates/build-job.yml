@@ -35,19 +35,19 @@ jobs:
     inputs:
       sourcePath: PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite
 
-  - ${{ if eq(parameters.runSonar, 'yes') }}:
-    - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
-      displayName: Prepare analysis on SonarQube
-      inputs:
-        SonarQube: https://cd-pu2-sqube.centralus.cloudapp.azure.com/
-        projectKey: ${{ parameters.sonarProjectKey }}
-        projectName: PartsUnlimited
-        extraProperties: |
-          # Additional properties that will be passed to the scanner, 
-          # Put one key=value per line, example:
-          # sonar.exclusions=**/*.bin
-          sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
-      condition: succeeded()
+  #- ${{ if eq(parameters.runSonar, 'yes') }}:
+  - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
+    displayName: Prepare analysis on SonarQube
+    inputs:
+      SonarQube: https://cd-pu2-sqube.centralus.cloudapp.azure.com/
+      projectKey: ${{ parameters.sonarProjectKey }}
+      projectName: PartsUnlimited
+      extraProperties: |
+        # Additional properties that will be passed to the scanner, 
+        # Put one key=value per line, example:
+        # sonar.exclusions=**/*.bin
+        sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
+    condition: and(succeeded(), eq(parameters.runSonar, 'yes'))
 
   - task: VSBuild@1
     displayName: Build solution
