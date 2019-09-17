@@ -12,7 +12,7 @@ jobs:
   variables:
   - group: 'PartsUnlimited Terraform Secrets'
   pool:
-    vmImage: windows-latest
+    vmImage: ubuntu-latest
   environment:
     ${{ parameters.environment }}
   strategy:

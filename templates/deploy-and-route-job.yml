@@ -18,7 +18,7 @@ jobs:
       value: '$(Pipeline.Workspace)/$(artifactName)/loadtest'
     - group: 'PartsUnlimited Terraform Secrets'
   pool:
-    vmInage: windows-latest
+    vmImage: windows-latest
   environment:
     ${{ parameters.environment }}
   strategy:
