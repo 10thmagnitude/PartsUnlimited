@@ -1,6 +1,6 @@
 environment = {
   dev = {
-    location = "eastus"
+    location = "westus2"
     db.edition = "Basic"
     db.sku = "Basic"
 
@@ -12,7 +12,7 @@ environment = {
   }
 
   prod = {
-    location = "eastus"
+    location = "westus2"
     db.edition = "Standard"
     db.sku = "S1"
 
