@@ -15,7 +15,7 @@ stages:
   - template: templates/build-job.yml
     parameters:
       packageFeed: 7934b660-3831-4640-a3c9-a0fa7aa6d068
-      sonarEndoint: 'SonarVM'
+      sonarEndpoint: 'SonarVM'
       sonarUrl: 'http://localhost:9000'
       sonarProjectKey: PartsUnlimited
       runSonar: yes
