@@ -42,7 +42,7 @@ jobs:
         - task: SqlAzureDacpacDeployment@1
           displayName: Prep Test Data
           inputs:
-            azureSub: ${{ parameters.azureSub }}
+            azureSubscription: ${{ parameters.azureSub }}
             ServerName: cdpusqlprod.database.windows.net
             DatabaseName: PartsUnlimited
             SqlUsername: tfadmin
