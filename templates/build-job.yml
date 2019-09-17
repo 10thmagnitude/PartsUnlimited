@@ -1,5 +1,5 @@
 parameters:
-  solution: **/*.sln
+  solution: '**/*.sln'
   buildPlatform: any cpu
   buildConfiguration: release
   artifactName: drop
@@ -114,7 +114,7 @@ jobs:
     displayName: Copy test settings to: staging/loadtest
     inputs:
       SourceFolder: PartsUnlimited-aspnet45
-      Contents: *.testsettings
+      Contents: '*.testsettings'
       TargetFolder: $(build.artifactstagingdirectory)/loadtest
 
   - task: PublishPipelineArtifact@1

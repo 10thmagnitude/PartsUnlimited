@@ -25,7 +25,7 @@ jobs:
     displayName: Replace tokens in $(seleniumTestsPath)
     inputs:
       sourcePath: $(seleniumTestsPath)'
-      filePattern: *.runsettings
+      filePattern: '*.runsettings'
   
   - script: cat /vsts/agent/_work/1/s/PartsUnlimited-aspnet45/test/PartsUnlimited.NetCore.SeleniumTests/release.runsettings
   
@@ -42,7 +42,7 @@ jobs:
     displayName: Publish Test Results
     inputs:
       testResultsFormat: VSTest
-      testResultsFiles: **/*.trx
+      testResultsFiles: '**/*.trx'
       searchFolder: $(Agent.TempDirectory)
       testRunTitle: Selenium Tests (${{ parameters.browser }})
     condition: always()
