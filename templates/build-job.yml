@@ -5,6 +5,7 @@ parameters:
   artifactName: drop
   sonarProjectKey: ''
   runSonar: no
+  sonarEndpoint: ''
   sonarUrl: 'http://localhost:9000'
 
 jobs:
@@ -38,7 +39,7 @@ jobs:
     - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
       displayName: Prepare analysis on SonarQube
       inputs:
-        SonarQube: '${{ parameters.sonarUrl }}'
+        SonarQube: '${{ parameters.sonarEndpoint }}'
         projectKey: ${{ parameters.sonarProjectKey }}
         projectName: PartsUnlimited
         scannerMode: 'MSBuild'
