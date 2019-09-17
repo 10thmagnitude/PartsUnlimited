@@ -1,6 +1,6 @@
 parameters:
   environment: ''
-  slot: 'blue'
+  slot: blue
   azureSub: ''
   webApp: ''
   webAppRG: ''
@@ -10,7 +10,7 @@ parameters:
 jobs:
 - deployment: swapSlots
   variables:
-  - group: 'PartsUnlimited Terraform Secrets'
+  - group: PartsUnlimited Terraform Secrets
   pool:
     vmImage: ubuntu-latest
   environment:
@@ -29,7 +29,7 @@ jobs:
               SourceSlot: ${{ parameters.slot }}
 
         - task: colinsalmcorner.colinsalmcorner-buildtasks.route-traffic-task.azureWebAppRouteTraffic@0
-          displayName: 'Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}'
+          displayName: Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}
           inputs:
             ConnectedServiceName: ${{ parameters.azureSub }}
             WebAppName: ${{ parameters.webApp }}

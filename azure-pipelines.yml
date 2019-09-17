@@ -3,10 +3,10 @@ name: 1.0.0$(Rev:.r)
 variables:
   RGPrefix: cd-pu2
   WebAppPrefix: cdpartsun2
-  TFDownloadURL: 'https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip'
-  RootTFPath: '$(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf'
-  AzureSubscription: '10M Client Demo'
-  VSTSEndpoint: '10M VSTS'
+  TFDownloadURL: https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+  RootTFPath: $(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf
+  AzureSubscription: 10M Client Demo
+  VSTSEndpoint: 10M VSTS
 
 stages:
 - stage: build
@@ -14,73 +14,73 @@ stages:
   jobs:
   - template: templates/build-job.yml
     parameters:
-      packageFeed: '7934b660-3831-4640-a3c9-a0fa7aa6d068'
-      runSonar: '$(RunSonar)'
-      sonarProjectKey: 'PartsUnlimited'
-      sonarUrl: '$(sonarUrl)'
-      sonarToken: '$(sonarToken)'
+      packageFeed: 7934b660-3831-4640-a3c9-a0fa7aa6d068
+      runSonar: $(RunSonar)
+      sonarProjectKey: PartsUnlimited
+      sonarUrl: $(sonarUrl)
+      sonarToken: $(sonarToken)
 
 - stage: dev
   displayName: Deploy to DEV
   dependsOn: build
   variables:
-  - group: 'PartsUnlimited Terraform Secrets'
+  - group: PartsUnlimited Terraform Secrets
   jobs:
   - template: templates/terraform-job.yml
     parameters:
-      armAccessKey: '$(ARMAccessKey)'
-      environment: 'PartsUnlimited-DEV'
+      armAccessKey: $(ARMAccessKey)
+      environment: PartsUnlimited-DEV
       logicalEnvironment: dev
-      rootPath: '$(RootTFPath)'
-      tfDownloadUrl: '$(TFDownloadURL)'
+      rootPath: $(RootTFPath)
+      tfDownloadUrl: $(TFDownloadURL)
 
   - template: templates/deploy-webapp-job.yml
     parameters:
-      environment: 'PartsUnlimited-DEV'
+      environment: PartsUnlimited-DEV
       logicalEnvironment: dev
-      webAppRG: '$(RGPrefix)-dev-webapp'
-      webApp: '$(WebAppPrefix)-dev'
-      azureSub: '$(AzureSubscription)'
-      runQuickPerfTests: '$(RunLoadTests)'
-      vstsEndpoint: '$(VSTSEndpoint)'
+      webAppRG: $(RGPrefix)-dev-webapp
+      webApp: $(WebAppPrefix)-dev
+      azureSub: $(AzureSubscription)
+      runQuickPerfTests: $(RunLoadTests)
+      vstsEndpoint: $(VSTSEndpoint)
   
   - template: templates/run-selenium-job.yml
     parameters:
-      baseUrl: 'http://$(WebAppPrefix)-dev.azurewebsites.net'
+      baseUrl: http://$(WebAppPrefix)-dev.azurewebsites.net
 
 - stage: prod_blue
   displayName: Canary Deployment to PROD (blue)
   dependsOn: dev
   variables:
-  - group: 'PartsUnlimited Terraform Secrets'
+  - group: PartsUnlimited Terraform Secrets
   jobs:
   - template: templates/terraform-job.yml
     parameters:
-      armAccessKey: '$(ARMAccessKey)'
-      environment: 'PartsUnlimited-PROD-blue'
+      armAccessKey: $(ARMAccessKey)
+      environment: PartsUnlimited-PROD-blue
       logicalEnvironment: prod
-      rootPath: '$(RootTFPath)'
-      tfDownloadUrl: '$(TFDownloadURL)'
+      rootPath: $(RootTFPath)
+      tfDownloadUrl: $(TFDownloadURL)
 
   - template: templates/deploy-webapp-job.yml
     parameters:
-      environment: 'PartsUnlimited-PROD'
+      environment: PartsUnlimited-PROD
       logicalEnvironment: prod
-      webAppRG: '$(RGPrefix)-dev-webapp'
-      webApp: '$(WebAppPrefix)-dev'
-      azureSub: '$(AzureSubscription)'
-      runQuickPerfTests: '$(RunLoadTests)'
-      vstsEndpoint: '$(VSTSEndpoint)'
+      webAppRG: $(RGPrefix)-dev-webapp
+      webApp: $(WebAppPrefix)-dev
+      azureSub: $(AzureSubscription)
+      runQuickPerfTests: $(RunLoadTests)
+      vstsEndpoint: $(VSTSEndpoint)
   
   - template: templates/deploy-and-route-job.yml
     parameters:
-      dependsOn: 'deployWebApp'
-      environment: 'PartsUnlimited-PROD'
-      azureSub: '$(AzureSubscription)'
-      webAppRG: '$(RGPrefix)-prod-webapp'
-      webApp: '$(WebAppPrefix)-prod'
-      runLoadTests: '$(RunLoadTests)'
-      slot: 'blue'
+      dependsOn: deployWebApp
+      environment: PartsUnlimited-PROD
+      azureSub: $(AzureSubscription)
+      webAppRG: $(RGPrefix)-prod-webapp
+      webApp: $(WebAppPrefix)-prod
+      runLoadTests: $(RunLoadTests)
+      slot: blue
       percentageToRoute: 20
 
 - stage: prod_green
@@ -89,13 +89,13 @@ stages:
   jobs:
   - template: templates/swap-and-route-job.yml
     parameters:
-      environment: 'PartsUnlimited-PROD'
-      azureSub: '$(AzureSubscription)'
-      webAppRG: '$(RGPrefix)-prod-webapp'
-      webApp: '$(WebAppPrefix)-prod'
-      vstsEndpoint: '$(VSTSEndpoint)'
+      environment: PartsUnlimited-PROD
+      azureSub: $(AzureSubscription)
+      webAppRG: $(RGPrefix)-prod-webapp
+      webApp: $(WebAppPrefix)-prod
+      vstsEndpoint: $(VSTSEndpoint)
       swapSlots: true
-      slot: 'blue'
+      slot: blue
       percentageToRoute: 0
 
 - stage: prod_rollback
@@ -104,10 +104,10 @@ stages:
   jobs:
   - template: templates/swap-and-route-job.yml
     parameters:
-      environment: 'PartsUnlimited-PROD'
-      azureSub: '$(AzureSubscription)'
-      webAppRG: '$(RGPrefix)-prod-webapp'
-      webApp: '$(WebAppPrefix)-prod'
+      environment: PartsUnlimited-PROD
+      azureSub: $(AzureSubscription)
+      webAppRG: $(RGPrefix)-prod-webapp
+      webApp: $(WebAppPrefix)-prod
       swapSlots: false
-      slot: 'blue'
+      slot: blue
       percentageToRoute: 0

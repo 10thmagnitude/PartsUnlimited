@@ -1,9 +1,9 @@
 parameters:
   environment: ''
-  logicalEnvironment: 'dev'
+  logicalEnvironment: dev
   armAccessKey: ''
   rgPrefix: ''
-  tfPath: '$(Agent.TempDirectory)/tf'
+  tfPath: $(Agent.TempDirectory)/tf
   tfDownloadUrl: ''
   rootPath: ''
   stacks:
@@ -15,11 +15,11 @@ jobs:
 - deployment: runTerraform
   displayName: Run Terraform on stacks
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: ubuntu-latest
   environment:
     ${{ parameters.environment }}
   variables:
-    EnvironmentName: '${{ parameters.logicalEnvironment }}'
+    EnvironmentName: ${{ parameters.logicalEnvironment }}
   strategy:
     runOnce:
       deploy:
@@ -28,9 +28,9 @@ jobs:
           fetchDepth: 1
 
         - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
-          displayName: 'Replace tokens in ${{ parameters.rootPath }}'
+          displayName: Replace tokens in ${{ parameters.rootPath }}
           inputs:
-            sourcePath: '${{ parameters.rootPath }}'
+            sourcePath: ${{ parameters.rootPath }}
             filePattern: release.tfvars
         
         - script: |
@@ -44,9 +44,9 @@ jobs:
             fi
             $TFPATH/terraform -version
           env:
-            TFPATH: '${{ parameters.tfPath}}'
-            TFURL: '${{ parameters.tfDownloadUrl }}'
-          displayName: 'Download terraform'
+            TFPATH: ${{ parameters.tfPath}}
+            TFURL: ${{ parameters.tfDownloadUrl }}
+          displayName: Download terraform
         
         - ${{ each stack in parameters.stacks }}:
           - script: |
@@ -71,10 +71,10 @@ jobs:
               echo "*********** Run 'apply'"
               $TFPATH/terraform apply -no-color -input=false -auto-approve ./tf.plan
             env:
-              ARMACCESSKEY: '${{ parameters.armAccessKey}}'
-              TFPATH: '${{ parameters.tfPath}}'
-              ENVIRONMENT: '${{ parameters.logicalEnvironment }}'
-              RELEASE: '$(Build.BuildNumber)'
-            displayName: 'Run terraform in ${{ stack }}'
-            workingDirectory: '${{ parameters.rootPath }}/${{ stack }}'
+              ARMACCESSKEY: ${{ parameters.armAccessKey}}
+              TFPATH: ${{ parameters.tfPath}}
+              ENVIRONMENT: ${{ parameters.logicalEnvironment }}
+              RELEASE: $(Build.BuildNumber)
+            displayName: Run terraform in ${{ stack }}
+            workingDirectory: ${{ parameters.rootPath }}/${{ stack }}
             failOnStderr: true

@@ -6,7 +6,7 @@ parameters:
   runLoadTests: 'no'
   vstsEndpoint: ''
   azureSub: ''
-  slot: 'blue'
+  slot: blue
   percentageToRoute: 20
 
 jobs:
@@ -17,8 +17,8 @@ jobs:
     - name: artifactName
       value: drop
     - name: loadTestPath
-      value: '$(Pipeline.Workspace)/$(artifactName)/loadtest'
-    - group: 'PartsUnlimited Terraform Secrets'
+      value: $(Pipeline.Workspace)/$(artifactName)/loadtest
+    - group: PartsUnlimited Terraform Secrets
   pool:
     vmImage: windows-latest
   environment:
@@ -28,7 +28,7 @@ jobs:
       deploy:
         steps:
         - download: current
-          artifact: '$(artifactName)'
+          artifact: $(artifactName)
 
         - task: colinsalmcorner.colinsalmcorner-buildtasks.route-traffic-task.azureWebAppRouteTraffic@0
           displayName: 'Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}'
@@ -40,23 +40,23 @@ jobs:
             percentTraffic: ${{ parameters.percentageToRoute }}
 
         - task: SqlAzureDacpacDeployment@1
-          displayName: 'Prep Test Data'
+          displayName: Prep Test Data
           inputs:
             azureSub: ${{ parameters.azureSub }}
-            ServerName: 'cdpusqlprod.database.windows.net'
+            ServerName: cdpusqlprod.database.windows.net
             DatabaseName: PartsUnlimited
             SqlUsername: tfadmin
-            SqlPassword: '$(SQLPassword)'
+            SqlPassword: $(SQLPassword)
             deployType: InlineSqlTask
-            SqlInline: 'DELETE FROM CartItems'
+            SqlInline: DELETE FROM CartItems
         
         - ${{ if eq(parameters.runLoadTests, 'yes') }}:
           - task: CloudLoadTest@1
-            displayName: 'Cloud Load Test FakeLoad.loadtest'
+            displayName: Cloud Load Test FakeLoad.loadtest
             inputs:
               connectedServiceName: ${{ parmaters.vstsEndpoint }}
-              TestDrop: '$(loadTestPath)'
+              TestDrop: $(loadTestPath)
               LoadTest: FakeLoad.loadtest
-              testContextParameters: '-WebServer https://${{ parameters.webApp }}.azurewebsites.net'
-              TestSettings: '$(loadTestPath)/cloud.testsettings'
+              testContextParameters: -WebServer https://${{ parameters.webApp }}.azurewebsites.net
+              TestSettings: $(loadTestPath)/cloud.testsettings
             condition: succeeded()
