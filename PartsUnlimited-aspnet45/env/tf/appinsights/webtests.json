@@ -7,6 +7,9 @@
         },
         "baseUrl": { 
             "type": "string" 
+        },
+        "location": { 
+            "type": "string" 
         }
     },
     "variables": {
@@ -35,7 +38,7 @@
             "id": "[resourceId('Microsoft.Insights/webtests', toLower(concat(variables('tests')[copyIndex()].name, '-', parameters('appInsightsName'))))]",
             "name": "[toLower(concat(variables('tests')[copyIndex()].name, '-', parameters('appInsightsName')))]",
             "type": "Microsoft.Insights/webtests",
-            "location": "eastus",
+            "location": "[parameters('location')]",
             "tags": {
                 "[concat('hidden-link:', resourceId('Microsoft.insights/components', parameters('appInsightsName')))]": "Resource"
             },
@@ -79,7 +82,7 @@
             "id": "[resourceId('Microsoft.Insights/alertrules', tolower(concat(variables('tests')[copyIndex()].name, '-', parameters('appInsightsName'), '-', subscription().subscriptionId)))]",
             "name": "[tolower(concat(variables('tests')[copyIndex()].name, '-', parameters('appInsightsName'), '-', subscription().subscriptionId))]",
             "type": "Microsoft.Insights/alertRules",
-            "location": "eastus",
+            "location": "[parameters('location')]",
             "tags": {
                 "[concat('hidden-link:', resourceId('Microsoft.Insights/components', parameters('appInsightsName')))]": "Resource",
                 "[concat('hidden-link:', resourceId('Microsoft.Insights/webtests', variables('tests')[copyIndex()].name))]": "Resource"
