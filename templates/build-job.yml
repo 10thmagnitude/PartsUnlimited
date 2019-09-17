@@ -47,7 +47,7 @@ jobs:
         # Put one key=value per line, example:
         # sonar.exclusions=**/*.bin
         sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
-    condition: and(succeeded(), eq(parameters.runSonar, 'yes'))
+    condition: and(succeeded(), eq('${{ parameters.runSonar }}', 'yes'))
 
   - task: VSBuild@1
     displayName: Build solution
