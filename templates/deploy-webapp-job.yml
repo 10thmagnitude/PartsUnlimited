@@ -59,8 +59,6 @@ jobs:
                   DELETE FROM CartItems;
                 END
         
-        - script: echo RunQuickPerfTests = [${{ parameters.runQuickPerfTests }}
-
         - ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
           - task: QuickPerfTest@1
             displayName: Quick Web Performance Test PartsUnlimited-${{ parameters.logicalEnvironment }}

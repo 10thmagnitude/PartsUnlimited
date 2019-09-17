@@ -7,8 +7,6 @@ variables:
   RootTFPath: $(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf
   AzureSubscription: 10M Client Demo
   VSTSEndpoint: 10M VSTS
-  RunLoadTests: yes
-  RunSonar: yes
 
 stages:
 - stage: build
@@ -19,7 +17,6 @@ stages:
       packageFeed: 7934b660-3831-4640-a3c9-a0fa7aa6d068
       runSonar: $(RunSonar)
       sonarProjectKey: PartsUnlimited
-      sonarUrl: http://localhost:9000
       sonarToken: $(sonarToken)
 
 - stage: dev
@@ -49,6 +46,7 @@ stages:
   - template: templates/run-selenium-job.yml
     parameters:
       baseUrl: http://$(WebAppPrefix)-dev.azurewebsites.net
+      runUITests: $(RunUITests)
 
 - stage: prod_blue
   displayName: Canary Deployment to PROD (blue)
