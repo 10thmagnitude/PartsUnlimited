@@ -5,7 +5,7 @@ parameters:
   artifactName: drop
   sonarProjectKey: ''
   runSonar: no
-  sonarUrl: 'http://localhost:9000'
+  sonarUrl: 'https://cd-pu2-sqube.centralus.cloudapp.azure.com/'
 
 jobs:
 - job: Build
