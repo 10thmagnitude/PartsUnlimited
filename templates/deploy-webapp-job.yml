@@ -41,22 +41,22 @@ jobs:
               New-AzResource -ResourceGroupName ${{ parameters.webAppRG }} -ResourceType Microsoft.Web/sites/Config -Name ${{ parameters.webApp }}/slotConfigNames -PropertyObject @{ appSettingNames = @("SlotName") } -ApiVersion 2015-08-01 -Force
             azurePowerShellVersion: LatestVersion
         
-        - task: SqlDacpacDeploymentOnMachineGroup@0
+        - task: SqlAzureDacpacDeployment@1
           displayName: 'Clean SQL for load testing'
           inputs:
-            TaskType: 'sqlInline'
-            InlineSql: |
+            azureSubscription: '$(AzureSubscription)'
+            ServerName: 'cdpusql$(System.StageName).database.windows.net'
+            DatabaseName: PartsUnlimited
+            SqlUsername: tfadmin
+            SqlPassword: '$(SQLPassword)'
+            deployType: InlineSqlTask
+            SqlInline: |
               DECLARE @itemCount INT;
               SELECT @itemCount = COUNT(CartItemId) FROM CartItems
               IF 1000 < @itemCount
                 BEGIN
                   DELETE FROM CartItems;
                 END
-            ServerName: 'cdpusql$(System.StageName).database.windows.net'
-            DatabaseName: 'PartsUnlimited'
-            AuthScheme: 'sqlServerAuthentication'
-            SqlUsername: 'tfadmin'
-            SqlPassword: '$(SQLPassword)'
         
         - script: 'echo "RunQuickPerfTests = [${{ parameters.runQuickPerfTests }}]"'
 

@@ -105,13 +105,13 @@ jobs:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: CopyFiles@2
-    displayName: 'Copy test bins to: $(build.artifactstagingdirectory)/loadtest'
+    displayName: 'Copy test bins to: staging/loadtest'
     inputs:
       SourceFolder: 'PartsUnlimited-aspnet45/test/PartsUnlimited.LoadTests/bin/${{ parameters.buildConfiguration }}'
       TargetFolder: '$(build.artifactstagingdirectory)/loadtest'
 
   - task: CopyFiles@2
-    displayName: 'Copy test settings to: $(build.artifactstagingdirectory)/loadtest'
+    displayName: 'Copy test settings to: staging/loadtest'
     inputs:
       SourceFolder: 'PartsUnlimited-aspnet45'
       Contents: '*.testsettings'

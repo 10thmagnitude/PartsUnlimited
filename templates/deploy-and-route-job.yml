@@ -1,0 +1,60 @@
+parameters:
+  dependsOn: ''
+  environment: ''
+  webAppRG: ''
+  webApp: ''
+  runLoadTests: 'no'
+  azureSub: ''
+  slot: 'blue'
+  percentageToRoute: 20
+
+jobs:
+- deployment: routeTraffic
+  dependsOn: ${{ parameters.dependsOn }}
+  variables:
+    - name: artifactName
+      value: drop
+    - name: loadTestPath
+      value: '$(Pipeline.Workspace)/$(artifactName)/loadtest'
+    - group: 'PartsUnlimited Terraform Secrets'
+  pool:
+    name: windows-latest
+  environment:
+    ${{ parameters.environment }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - download: current
+          artifact: '$(artifactName)'
+
+        - task: colinsalmcorner.colinsalmcorner-buildtasks.route-traffic-task.azureWebAppRouteTraffic@0
+          displayName: 'Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}'
+          inputs:
+            ConnectedServiceName: ${{ parameters.azureSub }}
+            WebAppName: ${{ parameters.webApp }}
+            ResourceGroupName: ${{ parameters.webAppRG }}
+            Slot: ${{ parameters.slot }}
+            percentTraffic: ${{ parameters.percentageToRoute }}
+
+        - task: SqlAzureDacpacDeployment@1
+          displayName: 'Prep Test Data'
+          inputs:
+            azureSub: ${{ parameters.azureSub }}
+            ServerName: 'cdpusqlprod.database.windows.net'
+            DatabaseName: PartsUnlimited
+            SqlUsername: tfadmin
+            SqlPassword: '$(SQLPassword)'
+            deployType: InlineSqlTask
+            SqlInline: 'DELETE FROM CartItems'
+        
+        - ${{ if eq(paramters.runLoadTests, 'yes')) }}:
+          - task: CloudLoadTest@1
+            displayName: 'Cloud Load Test FakeLoad.loadtest'
+            inputs:
+              connectedServiceName: ${{ parmaters.vstsEndpoint }}
+              TestDrop: '$(loadTestPath)'
+              LoadTest: FakeLoad.loadtest
+              testContextParameters: '-WebServer https://${{ parameters.webApp }}.azurewebsites.net'
+              TestSettings: '$(loadTestPath)/cloud.testsettings'
+            condition: succeeded()

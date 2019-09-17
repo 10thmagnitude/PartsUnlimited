@@ -30,7 +30,7 @@ jobs:
   - script: cat /vsts/agent/_work/1/s/PartsUnlimited-aspnet45/test/PartsUnlimited.NetCore.SeleniumTests/release.runsettings
   
   - task: DotNetCoreCLI@2
-    displayName: 'dotnet test'
+    displayName: 'run dotnet test'
     inputs:
       command: test
       projects: '$(seleniumTestsPath)/PartsUnlimited.NetCore.SeleniumTests.csproj'
@@ -39,7 +39,7 @@ jobs:
     continueOnError: true
   
   - task: PublishTestResults@2
-    displayName: 'Publish Test Results **/*.trx'
+    displayName: 'Publish Test Results'
     inputs:
       testResultsFormat: VSTest
       testResultsFiles: '**/*.trx'

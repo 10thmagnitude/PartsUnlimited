@@ -1,0 +1,38 @@
+paramters:
+  environment: ''
+  slot: 'blue'
+  azureSub: ''
+  webApp: ''
+  webAppRG: ''
+  swapSlots: false
+  percentageToRoute: 0
+
+jobs:
+- deployment: swapSlots
+  variables:
+  - group: 'PartsUnlimited Terraform Secrets'
+  pool:
+    name: windows-latest
+  environment:
+    ${{ parameters.environment }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - ${{ if (parameters.swapSlots) }}:
+          - task: AzureAppServiceManage@0
+            displayName: 'Swap Slots: ${{ parameters.slot }}<-->prod'
+            inputs:
+              azureSubscription: ${{ paramters.azureSub }}
+              WebAppName: ${{ parameters.webApp }}
+              ResourceGroupName: ${{ parameters.webAppRG }}
+              SourceSlot: ${{ parameters.slot }}
+
+        - task: colinsalmcorner.colinsalmcorner-buildtasks.route-traffic-task.azureWebAppRouteTraffic@0
+          displayName: 'Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}'
+          inputs:
+            ConnectedServiceName: ${{ paramters.azureSub }}
+            WebAppName: ${{ parameters.webApp }}
+            ResourceGroupName: ${{ parameters.webAppRG }}
+            Slot: ${{ parameters.slot }}
+            percentTraffic: ${{ parameters.percentageToRoute }}
