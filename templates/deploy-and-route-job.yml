@@ -54,7 +54,7 @@ jobs:
           - task: CloudLoadTest@1
             displayName: Cloud Load Test FakeLoad.loadtest
             inputs:
-              connectedServiceName: ${{ parmaters.vstsEndpoint }}
+              connectedServiceName: ${{ parameters.vstsEndpoint }}
               TestDrop: $(loadTestPath)
               LoadTest: FakeLoad.loadtest
               testContextParameters: -WebServer https://${{ parameters.webApp }}.azurewebsites.net
