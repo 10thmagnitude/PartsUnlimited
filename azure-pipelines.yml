@@ -46,7 +46,7 @@ stages:
     parameters:
       baseUrl: 'http://$(WebAppPrefix)-dev.azurewebsites.net'
 
-- stage: prod-blue
+- stage: prod_blue
   displayName: Canary Deployment to PROD (blue)
   dependsOn: dev
   variables:
@@ -79,9 +79,9 @@ stages:
       slot: 'blue'
       percentageToRoute: 20
 
-- stage: prod-green
+- stage: prod_green
   displayName: Full deployment to PROD (green)
-  dependsOn: prod-blue
+  dependsOn: prod_blue
   jobs:
   - template: templates/swap-and-route-job.yml
     parameters:
@@ -93,9 +93,9 @@ stages:
       slot: 'blue'
       percentageToRoute: 0
 
-- stage: prod-rollback
+- stage: prod_rollback
   displayName: Rollback of PROD
-  dependsOn: prod-blue
+  dependsOn: prod_blue
   jobs:
   - template: templates/swap-and-route-job.yml
     parameters:
