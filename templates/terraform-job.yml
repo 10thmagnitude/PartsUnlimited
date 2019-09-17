@@ -1,5 +1,6 @@
 parameters:
   environment: ''
+  logicalEnvironment: 'dev'
   armAccessKey: ''
   rgPrefix: ''
   tfPath: '$(Agent.TempDirectory)/tf'
@@ -18,7 +19,7 @@ jobs:
   environment:
     ${{ parameters.environment }}
   variables:
-    EnvironmentName: '$(System.StageName)'
+    EnvironmentName: '${{ parameters.logicalEnvironment }}'
   strategy:
     runOnce:
       deploy:

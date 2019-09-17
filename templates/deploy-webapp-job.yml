@@ -1,5 +1,6 @@
 parameters:
   environment: ''
+  logicalEnvironment: 'dev'
   webAppRG: ''
   webApp: ''
   azureSub: ''
@@ -45,7 +46,7 @@ jobs:
           displayName: 'Clean SQL for load testing'
           inputs:
             azureSubscription: '$(AzureSubscription)'
-            ServerName: 'cdpusql$(System.StageName).database.windows.net'
+            ServerName: 'cdpusql${{ parameters.logicalEnvironment }}.database.windows.net'
             DatabaseName: PartsUnlimited
             SqlUsername: tfadmin
             SqlPassword: '$(SQLPassword)'
@@ -62,11 +63,11 @@ jobs:
 
         - ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
           - task: QuickPerfTest@1
-            displayName: 'Quick Web Performance Test PartsUnlimited-$(System.StageName)'
+            displayName: 'Quick Web Performance Test PartsUnlimited-${{ parameters.logicalEnvironment }}'
             inputs:
               connectedServiceName: '${{ parameters.vstsEndpoint }}'
               websiteUrl: 'https://${{ parameters.webApp }}.azurewebsites.net'
-              testName: 'PartsUnlimited-$(System.StageName)'
+              testName: 'PartsUnlimited-${{ parameters.logicalEnvironment }}'
               avgResponseTimeThreshold: 300
             condition: succeeded()
             continueOnError: true

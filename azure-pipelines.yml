@@ -30,12 +30,14 @@ stages:
     parameters:
       armAccessKey: '$(ARMAccessKey)'
       environment: 'PartsUnlimited-DEV'
+      logicalEnvironment: dev
       rootPath: '$(RootTFPath)'
       tfDownloadUrl: '$(TFDownloadURL)'
 
   - template: templates/deploy-webapp-job.yml
     parameters:
       environment: 'PartsUnlimited-DEV'
+      logicalEnvironment: dev
       webAppRG: '$(RGPrefix)-dev-webapp'
       webApp: '$(WebAppPrefix)-dev'
       azureSub: '$(AzureSubscription)'
@@ -56,12 +58,14 @@ stages:
     parameters:
       armAccessKey: '$(ARMAccessKey)'
       environment: 'PartsUnlimited-PROD-blue'
+      logicalEnvironment: prod
       rootPath: '$(RootTFPath)'
       tfDownloadUrl: '$(TFDownloadURL)'
 
   - template: templates/deploy-webapp-job.yml
     parameters:
       environment: 'PartsUnlimited-PROD'
+      logicalEnvironment: prod
       webAppRG: '$(RGPrefix)-dev-webapp'
       webApp: '$(WebAppPrefix)-dev'
       azureSub: '$(AzureSubscription)'
