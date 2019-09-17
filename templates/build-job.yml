@@ -48,7 +48,8 @@ jobs:
           # Put one key=value per line, example:
           # sonar.exclusions=**/*.bin
           sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
-      condition: succeeded()
+      # can only do sonar on master branch because of community edition
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: VSBuild@1
     displayName: Build solution
@@ -74,11 +75,13 @@ jobs:
   - ${{ if eq(parameters.runSonar, 'yes') }}:
     - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
       displayName: Run Code Analysis
-      condition: succeeded()
+      # can only do sonar on master branch because of community edition
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - task: SonarSource.sonarqube.291ed61f-1ee4-45d3-b1b0-bf822d9095ef.SonarQubePublish@4
       displayName: Publish Quality Gate Result
-      condition: succeeded()
+      # can only do sonar on master branch because of community edition
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - powershell: |
         $token = [System.Text.Encoding]::UTF8.GetBytes("$(sonarToken)" + ":")
@@ -99,7 +102,8 @@ jobs:
       displayName: Check SonarQube Quality Gate
       env:
         SonarUrl: ${{ parameters.sonarUrl }}
-      condition: succeeded()
+      # can only do sonar on master branch because of community edition
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: CopyFiles@2
     displayName: 'Copy test bins to: staging/loadtest'
