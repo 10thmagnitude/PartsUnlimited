@@ -48,7 +48,7 @@ jobs:
             deployType: InlineSqlTask
             SqlInline: 'DELETE FROM CartItems'
         
-        - ${{ if eq(paramters.runLoadTests, 'yes')) }}:
+        - ${{ if (eq(paramters.runLoadTests, 'yes')) }}:
           - task: CloudLoadTest@1
             displayName: 'Cloud Load Test FakeLoad.loadtest'
             inputs:
