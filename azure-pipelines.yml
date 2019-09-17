@@ -6,6 +6,7 @@ variables:
   TFDownloadURL: https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
   RootTFPath: $(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf
   AzureSubscription: 10M Client Demo
+  VSTSEndpoint: '10M VSTS'
 
 stages:
 - stage: build
@@ -70,7 +71,7 @@ stages:
       webApp: $(WebAppPrefix)-prod
       azureSub: $(AzureSubscription)
       runQuickPerfTests: yes
-      vstsEndpoint: 10M VSTS
+      vstsEndpoint: $(VSTSEndpoint)
   
   - template: templates/deploy-and-route-job.yml
     parameters:
@@ -93,7 +94,7 @@ stages:
       azureSub: $(AzureSubscription)
       webAppRG: $(RGPrefix)-prod-webapp
       webApp: $(WebAppPrefix)-prod
-      vstsEndpoint: 10M VSTS
+      vstsEndpoint: $(VSTSEndpoint)
       swapSlots: true
       slot: blue
       percentageToRoute: 0
