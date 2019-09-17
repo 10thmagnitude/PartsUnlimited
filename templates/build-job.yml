@@ -3,11 +3,7 @@ parameters:
   buildPlatform: any cpu
   buildConfiguration: release
   artifactName: drop
-  packageFeed: 
-  runSonar: no
   sonarProjectKey: PartsUnlimited
-  sonarUrl: 
-  sonarToken: 
 
 jobs:
 - job: Build
