@@ -19,7 +19,7 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - ${{ if (parameters.swapSlots) }}:
+        - ${{ if parameters.swapSlots }}:
           - task: AzureAppServiceManage@0
             displayName: 'Swap Slots: ${{ parameters.slot }}<-->prod'
             inputs:
