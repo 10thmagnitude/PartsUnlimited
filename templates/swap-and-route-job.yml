@@ -23,7 +23,7 @@ jobs:
           - task: AzureAppServiceManage@0
             displayName: 'Swap Slots: ${{ parameters.slot }}<-->prod'
             inputs:
-              azureSubscription: ${{ paramters.azureSub }}
+              azureSubscription: ${{ parameters.azureSub }}
               WebAppName: ${{ parameters.webApp }}
               ResourceGroupName: ${{ parameters.webAppRG }}
               SourceSlot: ${{ parameters.slot }}
@@ -31,7 +31,7 @@ jobs:
         - task: colinsalmcorner.colinsalmcorner-buildtasks.route-traffic-task.azureWebAppRouteTraffic@0
           displayName: 'Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}'
           inputs:
-            ConnectedServiceName: ${{ paramters.azureSub }}
+            ConnectedServiceName: ${{ parameters.azureSub }}
             WebAppName: ${{ parameters.webApp }}
             ResourceGroupName: ${{ parameters.webAppRG }}
             Slot: ${{ parameters.slot }}
