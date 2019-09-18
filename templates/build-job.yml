@@ -85,7 +85,7 @@ jobs:
         $basicAuth = [string]::Format("Basic {0}", $base64)
         $headers = @{ Authorization = $basicAuth }
           
-        $result = Invoke-RestMethod -Method Get -Uri "$(SonarUrl)/api/qualitygates/project_status?projectKey=$(SonarProj)" -Headers $headers
+        $result = Invoke-RestMethod -Method Get -Uri "$env:SONARURL/api/qualitygates/project_status?projectKey=$env:SONARPROJ" -Headers $headers
         $result | ConvertTo-Json | Write-Host
           
         if ($result.projectStatus.status -eq "OK" -or $result.projectStatus.status -eq "Warning") {
@@ -96,7 +96,8 @@ jobs:
       failOnStderr: true
       displayName: Check SonarQube Quality Gate
       env:
-        SonarUrl: ${{ parameters.sonarUrl }}
+        SONARURL: ${{ parameters.sonarUrl }}
+        SONARPROJ: ${{ parameters.sonarProjectKey }}
       # can only do sonar on master branch because of community edition
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 

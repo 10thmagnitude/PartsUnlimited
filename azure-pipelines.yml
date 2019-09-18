@@ -50,7 +50,7 @@ stages:
       runUITests: yes
 
 - stage: prod_blue
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master') # only deploy master builds past dev
+  condition: and(success(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) # only deploy master builds past dev
   displayName: Canary Deployment to PROD (blue)
   dependsOn: dev
   variables:
