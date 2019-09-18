@@ -1,0 +1,120 @@
+parameters:
+  solution: '**/*.sln'
+  buildPlatform: any cpu
+  buildConfiguration: release
+  artifactName: drop
+  sonarProjectKey: ''
+  runSonar: no
+  sonarEndpoint: ''
+  sonarUrl: 'http://localhost:9000'
+
+jobs:
+- job: Build
+  pool:
+    vmImage: windows-latest
+
+  steps:
+  - task: NuGetToolInstaller@0
+    displayName: Use NuGet 4.4.1
+    inputs:
+      versionSpec: 4.4.1
+
+  - task: NuGetCommand@2
+    displayName: NuGet restore
+    inputs:
+      restoreSolution: ${{ parameters.solution }}
+      vstsFeed: ${{ parameters.packageFeed }}
+
+  - task: colinsalmcorner.colinsalmcorner-buildtasks.version-assemblies-task.VersionAssemblies@2
+    displayName: Version Assemblies using **\AssemblyInfo.*
+    inputs:
+      sourcePath: PartsUnlimited-aspnet45/src/PartsUnlimitedWebsite
+
+  - ${{ if eq(parameters.runSonar, 'yes') }}:
+    - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
+      displayName: Prepare analysis on SonarQube
+      inputs:
+        SonarQube: '${{ parameters.sonarEndpoint }}'
+        projectKey: ${{ parameters.sonarProjectKey }}
+        projectName: PartsUnlimited
+        scannerMode: 'MSBuild'
+        extraProperties: |
+          # Additional properties that will be passed to the scanner, 
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          sonar.cs.vscoveragexml.reportsPaths=**/*.coveragexml
+      # can only do sonar on master branch because of community edition
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - task: VSBuild@1
+    displayName: Build solution
+    inputs:
+      solution: ${{ parameters.solution }}
+      msbuildArgs: /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"
+      platform: ${{ parameters.buildPlatform }}
+      configuration: ${{ parameters.buildConfiguration }}
+
+  - task: VSTest@2
+    displayName: Test Assemblies
+    inputs:
+      testAssemblyVer2: |
+        **\*unittest*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**
+      codeCoverageEnabled: true
+      platform: ${{ parameters.buildPlatform }}
+      configuration: ${{ parameters.buildConfiguration }}
+      diagnosticsEnabled: True
+      searchFolder: $(System.DefaultWorkingDirectory)
+
+  - ${{ if eq(parameters.runSonar, 'yes') }}:
+    - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
+      displayName: Run Code Analysis
+      # can only do sonar on master branch because of community edition
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+    - task: SonarSource.sonarqube.291ed61f-1ee4-45d3-b1b0-bf822d9095ef.SonarQubePublish@4
+      displayName: Publish Quality Gate Result
+      # can only do sonar on master branch because of community edition
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+    - powershell: |
+        $token = [System.Text.Encoding]::UTF8.GetBytes("$(sonarToken)" + ":")
+        $base64 = [System.Convert]::ToBase64String($token)
+          
+        $basicAuth = [string]::Format("Basic {0}", $base64)
+        $headers = @{ Authorization = $basicAuth }
+          
+        $result = Invoke-RestMethod -Method Get -Uri "$(SonarUrl)/api/qualitygates/project_status?projectKey=$(SonarProj)" -Headers $headers
+        $result | ConvertTo-Json | Write-Host
+          
+        if ($result.projectStatus.status -eq "OK" -or $result.projectStatus.status -eq "Warning") {
+          Write-Host "Quality Gate OK or Warning - proceed"
+        } else {
+          throw "SonarQube Quality gate failed"
+        }
+      failOnStderr: true
+      displayName: Check SonarQube Quality Gate
+      env:
+        SonarUrl: ${{ parameters.sonarUrl }}
+      # can only do sonar on master branch because of community edition
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - task: CopyFiles@2
+    displayName: 'Copy test bins to: staging/loadtest'
+    inputs:
+      SourceFolder: PartsUnlimited-aspnet45/test/PartsUnlimited.LoadTests/bin/${{ parameters.buildConfiguration }}
+      TargetFolder: $(build.artifactstagingdirectory)/loadtest
+
+  - task: CopyFiles@2
+    displayName: 'Copy test settings to: staging/loadtest'
+    inputs:
+      SourceFolder: PartsUnlimited-aspnet45
+      Contents: '*.testsettings'
+      TargetFolder: $(build.artifactstagingdirectory)/loadtest
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish Artifact
+    inputs:
+      targetPath: $(build.artifactstagingdirectory)
+      ArtifactName: ${{ parameters.artifactName }}

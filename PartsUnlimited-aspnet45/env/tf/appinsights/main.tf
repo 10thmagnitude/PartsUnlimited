@@ -62,6 +62,7 @@ resource "azurerm_template_deployment" "template-webtests" {
   parameters {
     "appInsightsName" = "${local.appinsights_name}"
     "baseUrl"         = "http://${local.app_name}.azurewebsites.net"
+    "location"        = "${local.location}"
   }
   deployment_mode     = "Incremental"
 

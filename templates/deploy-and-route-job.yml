@@ -1,0 +1,62 @@
+parameters:
+  dependsOn: ''
+  environment: ''
+  webAppRG: ''
+  webApp: ''
+  vstsEndpoint: ''
+  azureSub: ''
+  slot: blue
+  percentageToRoute: 20
+  runLoadTests: no
+
+jobs:
+- deployment: routeTraffic
+  displayName: Deploy and Route Traffic to slot
+  dependsOn: ${{ parameters.dependsOn }}
+  variables:
+    - name: artifactName
+      value: drop
+    - name: loadTestPath
+      value: $(Pipeline.Workspace)/$(artifactName)/loadtest
+    - group: PartsUnlimited Terraform Secrets
+  pool:
+    vmImage: windows-latest
+  environment:
+    ${{ parameters.environment }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - download: current
+          artifact: $(artifactName)
+
+        - task: colinsalmcorner.colinsalmcorner-buildtasks.route-traffic-task.azureWebAppRouteTraffic@0
+          displayName: 'Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}'
+          inputs:
+            ConnectedServiceName: ${{ parameters.azureSub }}
+            WebAppName: ${{ parameters.webApp }}
+            ResourceGroupName: ${{ parameters.webAppRG }}
+            Slot: ${{ parameters.slot }}
+            percentTraffic: ${{ parameters.percentageToRoute }}
+
+        - task: SqlAzureDacpacDeployment@1
+          displayName: Prep Test Data
+          inputs:
+            azureSubscription: ${{ parameters.azureSub }}
+            ServerName: cdpusqlprod.database.windows.net
+            DatabaseName: PartsUnlimited
+            SqlUsername: tfadmin
+            SqlPassword: $(SQLPassword)
+            deployType: InlineSqlTask
+            SqlInline: DELETE FROM CartItems
+        
+        - ${{ if eq(parameters.runLoadTests, 'yes') }}:
+          - task: CloudLoadTest@1
+            displayName: Cloud Load Test FakeLoad.loadtest
+            inputs:
+              connectedServiceName: ${{ parameters.vstsEndpoint }}
+              TestDrop: $(loadTestPath)
+              LoadTest: FakeLoad.loadtest
+              testContextParameters: -WebServer https://${{ parameters.webApp }}.azurewebsites.net
+              TestSettings: $(loadTestPath)/cloud.testsettings
+            condition: succeeded()
