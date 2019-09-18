@@ -16,7 +16,7 @@ stages:
     parameters:
       packageFeed: 7934b660-3831-4640-a3c9-a0fa7aa6d068
       sonarEndpoint: 'SonarACI'
-      sonarUrl: 'http://cdpu2squbeaci.centralus.azurecontainer.io:9000'
+      sonarUrl: 'http://cdpu2squbeaci.westus2.azurecontainer.io:9000'
       sonarProjectKey: PartsUnlimited
       runSonar: yes
 
