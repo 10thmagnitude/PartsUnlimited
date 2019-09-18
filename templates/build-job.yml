@@ -67,7 +67,7 @@ jobs:
       diagnosticsEnabled: True
       searchFolder: $(System.DefaultWorkingDirectory)
   
-  - pwsh: Copy-Item -Path d:\a\_temp\TestResults\ -Destination $(Common.TestResultsDirectory)\ -Recurse 
+  - powershell: Copy-Item -Path d:\a\_temp\TestResults\ -Destination $(Common.TestResultsDirectory)\ -Recurse 
     displayName: Copy test result files for SonarQube
 
   - ${{ if eq(parameters.runSonar, 'yes') }}:
