@@ -6,9 +6,14 @@
 1. Update admin credentials
 1. Create Project `PartsUnlimited`, key `PartsUnlimited`
 
+## Add js exclusion
+1. Open project admin and navigate to `Admin->General->Analysis Scope`
+1. Exclude `**/*.js`, `**/*.css` and `**/*.html` under `Code Coverage` and `Source File Exclusions`
+
 ## Create a Quality Gate
 1. Copy `Sonar way`
 1. Take thresholds down
+1. Enroll project in new Gate
 
 ## For the build
 1. Create a key and update the service endpoint `SonarACI`
