@@ -66,6 +66,8 @@ jobs:
       configuration: ${{ parameters.buildConfiguration }}
       diagnosticsEnabled: True
       searchFolder: $(System.DefaultWorkingDirectory)
+  
+  - script: dir d:\a\_temp\TestResults
 
   - ${{ if eq(parameters.runSonar, 'yes') }}:
     - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
