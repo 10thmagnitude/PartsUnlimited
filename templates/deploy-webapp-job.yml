@@ -33,7 +33,7 @@ jobs:
             azureSubscription: ${{ parameters.azureSub }}
             WebAppName: ${{ parameters.webApp }}
             packageForLinux: $(Package)
-            ${{ if ne(parameters.slot, '') }}
+            ${{ if ne(parameters.slot, '') }}:
             deployToSlotOrASE: true
             SlotName: ${{ parameters.slot }}
         
