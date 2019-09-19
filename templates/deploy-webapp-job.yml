@@ -7,7 +7,7 @@ parameters:
   vstsEndpoint: ''
   dependsOn: runTerraform
   runQuickPerfTests: no
-  slot: production
+  slot: ''
 
 jobs:
 - deployment: deployWebApp
@@ -33,6 +33,8 @@ jobs:
             azureSubscription: ${{ parameters.azureSub }}
             WebAppName: ${{ parameters.webApp }}
             packageForLinux: $(Package)
+            ${{ if ne(parameters.slot, '') }}
+            deployToSlotOrASE: true
             SlotName: ${{ parameters.slot }}
         
         - task: AzurePowerShell@4
