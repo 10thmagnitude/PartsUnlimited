@@ -68,6 +68,7 @@ stages:
     parameters:
       environment: PartsUnlimited-PROD
       logicalEnvironment: prod
+      slot: blue
       webAppRG: $(RGPrefix)-prod-webapp
       webApp: $(WebAppPrefix)-prod
       azureSub: $(AzureSubscription)
