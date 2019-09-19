@@ -57,6 +57,6 @@ jobs:
               connectedServiceName: ${{ parameters.vstsEndpoint }}
               TestDrop: $(loadTestPath)
               LoadTest: FakeLoad.loadtest
-              testContextParameters: -WebServer https://${{ parameters.webApp }}.azurewebsites.net
+              testContextParameters: -WebServer https://${{ parameters.webApp }}-${{ parameters.slot }}.azurewebsites.net
               TestSettings: $(loadTestPath)/cloud.testsettings
             condition: succeeded()
