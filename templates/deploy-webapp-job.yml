@@ -34,6 +34,7 @@ jobs:
             WebAppName: ${{ parameters.webApp }}
             packageForLinux: $(Package)
             deployToSlotOrASE: ${{ ne(parameters.slot, 'production') }}
+            ResourceGroupName: ${{ parameters.webAppRG }}
             SlotName: ${{ parameters.slot }}
         
         - task: AzurePowerShell@4
