@@ -8,6 +8,7 @@ parameters:
   dependsOn: runTerraform
   runQuickPerfTests: no
   slot: 'production'
+  downloadSteps: []
 
 jobs:
 - deployment: deployWebApp
@@ -16,7 +17,6 @@ jobs:
   pool:
     vmImage: windows-latest
   variables:
-    artifactName: drop
     package: $(Pipeline.Workspace)/$(artifactName)/PartsUnlimitedWebsite.zip
   environment:
     ${{ parameters.environment }}
@@ -24,8 +24,7 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - download: current
-          artifact: $(artifactName)
+        - ${{ parameters.downloadSteps }}
 
         - task: AzureRmWebAppDeployment@4
           displayName: 'Azure App Service Deploy: ${{ parameters.webApp }}'

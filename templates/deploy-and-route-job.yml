@@ -8,6 +8,7 @@ parameters:
   slot: blue
   percentageToRoute: 20
   runLoadTests: no
+  downloadSteps: []
 
 jobs:
 - deployment: routeTraffic
@@ -27,8 +28,7 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - download: current
-          artifact: $(artifactName)
+        - ${{ parameters.downloadSteps }}
 
         - task: colinsalmcorner.colinsalmcorner-buildtasks.route-traffic-task.azureWebAppRouteTraffic@0
           displayName: 'Route Traffic: ${{ parameters.percentageToRoute }}% to ${{ parameters.slot }} on ${{ parameters.webApp }}'
