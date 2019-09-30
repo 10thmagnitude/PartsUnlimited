@@ -25,12 +25,13 @@ stages:
       runQuickPerfTests: no
       vstsEndpoint: $(VSTSEndpoint)
       downloadSteps:
-      - download:
-          buildType: specific
-          project: Demos
-          pipelineId: 75
-          buildVersionToDownload: $(BuildToDeploy)
-          artifact: drop
+      - script: echo hello
+      # - download:
+      #     buildType: specific
+      #     project: Demos
+      #     pipelineId: 75
+      #     buildVersionToDownload: $(BuildToDeploy)
+      #     artifact: drop
   
   - template: templates/deploy-and-route-job.yml
     parameters:
