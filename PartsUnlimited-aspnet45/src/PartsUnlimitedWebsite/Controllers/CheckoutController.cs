@@ -19,7 +19,7 @@ namespace PartsUnlimited.Controllers
             db = context;
         }
 
-        const string PromoCode = "FREE";
+        const string PromoCode = "VSLIVE";
 
         //
         // GET: /Checkout/
