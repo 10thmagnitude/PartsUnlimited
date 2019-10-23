@@ -8,6 +8,9 @@ parameters:
   dependsOn: runTerraform
   runQuickPerfTests: no
   slot: 'production'
+  downloadSteps:
+  - download: current
+    artifact: drop
 
 jobs:
 - deployment: deployWebApp
@@ -23,9 +26,7 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - download:
-          buildType: current
-          artifact: drop
+        - ${{ parameters.downloadSteps }}
 
         - task: AzureRmWebAppDeployment@4
           displayName: 'Azure App Service Deploy: ${{ parameters.webApp }}'

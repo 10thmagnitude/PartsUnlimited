@@ -8,7 +8,9 @@ parameters:
   slot: blue
   percentageToRoute: 20
   runLoadTests: no
-  downloadSteps: []
+  downloadSteps:
+  - download: current
+    artifact: drop
 
 jobs:
 - deployment: routeTraffic
