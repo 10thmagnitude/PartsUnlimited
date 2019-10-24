@@ -64,7 +64,7 @@ jobs:
       codeCoverageEnabled: true
       platform: ${{ parameters.buildPlatform }}
       configuration: ${{ parameters.buildConfiguration }}
-      diagnosticsEnabled: True
+      diagnosticsEnabled: true
       searchFolder: $(System.DefaultWorkingDirectory)
   
   - powershell: Copy-Item -Path d:\a\_temp\TestResults\ -Destination $(Common.TestResultsDirectory)\ -Recurse 
