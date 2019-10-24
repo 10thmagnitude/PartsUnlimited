@@ -20,7 +20,7 @@ jobs:
     - name: artifactName
       value: drop
     - name: loadTestPath
-      value: $(Pipeline.Workspace)/$(artifactName)/loadtest
+      value: $(Pipeline.Workspace)/drop/loadtest
     - group: PartsUnlimited Terraform Secrets
   pool:
     vmImage: windows-latest

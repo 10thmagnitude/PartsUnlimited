@@ -19,7 +19,7 @@ jobs:
   pool:
     vmImage: windows-latest
   variables:
-    package: $(Pipeline.Workspace)/$(artifactName)/PartsUnlimitedWebsite.zip
+    package: $(Pipeline.Workspace)/drop/PartsUnlimitedWebsite.zip
   environment:
     ${{ parameters.environment }}
   strategy:
