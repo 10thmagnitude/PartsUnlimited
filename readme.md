@@ -1,5 +1,5 @@
 # Parts Unlimited Demo
-This demo shows GitHub and Azure DevOps integration using CI/CD and good DevOps practices.
+This demo shows GitHub and Azure DevOps integration using CI/CD and good DevOps practices. It uses `PartsUnlimited`, the company from The Phoenix Project.
 
 [![Board Status](https://dev.azure.com/10m/4a32908a-2082-4e50-a403-d7fea7c1ce5e/dd072c47-6a17-4cbb-bf2b-7caf2e874467/_apis/work/boardbadge/52d62470-fac4-4066-adfb-7455e61d63d0)](https://dev.azure.com/10m/4a32908a-2082-4e50-a403-d7fea7c1ce5e/_boards/board/t/dd072c47-6a17-4cbb-bf2b-7caf2e874467/Microsoft.RequirementCategory/)
 
