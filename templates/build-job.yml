@@ -64,7 +64,7 @@ jobs:
       codeCoverageEnabled: true
       platform: ${{ parameters.buildPlatform }}
       configuration: ${{ parameters.buildConfiguration }}
-      diagnosticsEnabled: True
+      diagnosticsEnabled: true
       searchFolder: $(System.DefaultWorkingDirectory)
   
   - powershell: Copy-Item -Path d:\a\_temp\TestResults\ -Destination $(Common.TestResultsDirectory)\ -Recurse 
@@ -82,7 +82,7 @@ jobs:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - powershell: |
-        $token = [System.Text.Encoding]::UTF8.GetBytes("$(sonarToken)" + ":")
+        $token = [System.Text.Encoding]::UTF8.GetBytes("$env:SONARTOKEN" + ":")
         $base64 = [System.Convert]::ToBase64String($token)
           
         $basicAuth = [string]::Format("Basic {0}", $base64)
@@ -101,6 +101,7 @@ jobs:
       env:
         SONARURL: ${{ parameters.sonarUrl }}
         SONARPROJ: ${{ parameters.sonarProjectKey }}
+        SONARTOKEN: $(sonarToken)
       # can only do sonar on master branch because of community edition
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
