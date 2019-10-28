@@ -74,10 +74,6 @@ stages:
       azureSub: $(AzureSubscription)
       runQuickPerfTests: yes
       vstsEndpoint: $(VSTSEndpoint)
-      downloadSteps:
-      - download:
-          buildType: current
-          artifact: drop
   
   - template: templates/deploy-and-route-job.yml
     parameters:
@@ -89,10 +85,6 @@ stages:
       runLoadTests: yes
       slot: blue
       percentageToRoute: 20
-      downloadSteps:
-      - download:
-          buildType: current
-          artifact: drop
 
 - stage: prod_green
   displayName: Full deployment to PROD (green)

@@ -25,13 +25,11 @@ stages:
       runQuickPerfTests: no
       vstsEndpoint: $(VSTSEndpoint)
       downloadSteps:
-      - script: echo hello
-      # - download:
-      #     buildType: specific
-      #     project: Demos
-      #     pipelineId: 75
-      #     buildVersionToDownload: $(BuildToDeploy)
-      #     artifact: drop
+      - download: specific
+        project: Demos
+        pipelineId: 75
+        buildVersionToDownload: $(BuildToDeploy)
+        artifact: drop
   
   - template: templates/deploy-and-route-job.yml
     parameters:
@@ -44,12 +42,11 @@ stages:
       slot: blue
       percentageToRoute: 20
       downloadSteps:
-      - download:
-          buildType: specific
-          project: Demos
-          pipelineId: 75
-          buildVersionToDownload: $(BuildToDeploy)
-          artifact: drop
+      - download: specific
+        project: Demos
+        pipelineId: 75
+        buildVersionToDownload: $(BuildToDeploy)
+        artifact: drop
 
 - stage: prod_green
   displayName: Full deployment to PROD (green)
