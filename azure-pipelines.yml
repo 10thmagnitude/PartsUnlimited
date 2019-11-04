@@ -72,7 +72,7 @@ stages:
       webAppRG: $(RGPrefix)-prod-webapp
       webApp: $(WebAppPrefix)-prod
       azureSub: $(AzureSubscription)
-      runQuickPerfTests: yes
+      runQuickPerfTests: no
       vstsEndpoint: $(VSTSEndpoint)
   
   - template: templates/deploy-and-route-job.yml
