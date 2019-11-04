@@ -25,6 +25,7 @@ namespace PartsUnlimited
         {
             // change in common1
             AreaRegistration.RegisterAllAreas();
+            System.Console.WriteLine("In Global");
 
             Database.SetInitializer(new PartsUnlimitedDbInitializer());
 
