@@ -11,3 +11,11 @@ Build|[![Build Status](https://dev.azure.com/10m/Demos/_apis/build/status/10thma
 DEV|[![Build Status](https://dev.azure.com/10m/Demos/_apis/build/status/10thmagnitude.PartsUnlimited?branchName=master&stageName=Deploy%20to%20DEV)](https://dev.azure.com/10m/Demos/_build/latest?definitionId=77&branchName=master)
 BLUE|[![Build Status](https://dev.azure.com/10m/Demos/_apis/build/status/10thmagnitude.PartsUnlimited?branchName=master&stageName=Canary%20Deployment%20to%20PROD%20(blue))](https://dev.azure.com/10m/Demos/_build/latest?definitionId=77&branchName=master)
 PROD|[![Build Status](https://dev.azure.com/10m/Demos/_apis/build/status/10thmagnitude.PartsUnlimited?branchName=master&stageName=Full%20deployment%20to%20PROD%20(green))](https://dev.azure.com/10m/Demos/_build/latest?definitionId=77&branchName=master)
+
+## Security and Quality
+
+Security and code quality scans are performed automatically by Semmle on [lgtm.com](https://lgtm.com).
+
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/10thmagnitude/PartsUnlimited.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/10thmagnitude/PartsUnlimited/alerts/)
+
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/10thmagnitude/PartsUnlimited.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/10thmagnitude/PartsUnlimited/context:javascript)

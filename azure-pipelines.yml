@@ -41,13 +41,13 @@ stages:
       webAppRG: $(RGPrefix)-dev-webapp
       webApp: $(WebAppPrefix)-dev
       azureSub: $(AzureSubscription)
-      runQuickPerfTests: yes
+      runQuickPerfTests: no
       vstsEndpoint: $(VSTSEndpoint)
   
   - template: templates/run-selenium-job.yml
     parameters:
       baseUrl: http://$(WebAppPrefix)-dev.azurewebsites.net
-      runUITests: yes
+      runUITests: no
 
 - stage: prod_blue
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) # only deploy master builds past dev
