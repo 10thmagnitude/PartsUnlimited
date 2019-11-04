@@ -1,6 +1,6 @@
-name: CI
+name: Slacker
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -9,13 +9,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+
     - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Slack notification
+      run: echo Run a script here!
+
+    - name: Slack notification for Commit
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: github-actions
         SLACK_CHANNEL: partsunlimited
       uses: Ilshidur/action-slack@master
       with:
-        args: 'A new commit has been pushed!'
+        args: 'A new ${{ github.event_name }} has been submitted by ${{ github.actor }}!'
