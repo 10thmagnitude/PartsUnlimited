@@ -20,4 +20,4 @@ jobs:
         SLACK_CHANNEL: partsunlimited
       uses: Ilshidur/action-slack@master
       with:
-        args: 'A new ${{ github.event_name }} has been pushed/created by ${{ github.actor }}!'
+        args: 'A new ${{ github.event_name }} has been submitted by ${{ github.actor }}!'
