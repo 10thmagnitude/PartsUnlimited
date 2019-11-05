@@ -19,3 +19,5 @@ Security and code quality scans are performed automatically by Semmle on [lgtm.c
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/10thmagnitude/PartsUnlimited.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/10thmagnitude/PartsUnlimited/alerts/)
 
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/10thmagnitude/PartsUnlimited.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/10thmagnitude/PartsUnlimited/context:javascript)
+
+[![Language grade: C#](https://img.shields.io/lgtm/grade/csharp/g/10thmagnitude/PartsUnlimited.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/10thmagnitude/PartsUnlimited/context:csharp)
