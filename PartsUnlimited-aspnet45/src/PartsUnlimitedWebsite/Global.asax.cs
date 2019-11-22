@@ -25,7 +25,7 @@ namespace PartsUnlimited
         {
             // change in common1
             AreaRegistration.RegisterAllAreas();
-            System.Console.WriteLine("In Global - please see GitHub!!");
+            System.Console.WriteLine("In Global - please see GitHub demo!!");
 
             Database.SetInitializer(new PartsUnlimitedDbInitializer());
 
