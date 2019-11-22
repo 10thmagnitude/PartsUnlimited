@@ -25,7 +25,7 @@ namespace PartsUnlimited
         {
             // change in common1
             AreaRegistration.RegisterAllAreas();
-            System.Console.WriteLine("In Global - please check NY!!");
+            System.Console.WriteLine("In Global - please see GitHub!!");
 
             Database.SetInitializer(new PartsUnlimitedDbInitializer());
 
