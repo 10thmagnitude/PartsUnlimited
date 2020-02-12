@@ -223,3 +223,7 @@ ModelManifest.xml
 **/secrets.tfvars
 
 **/.vs/*
+
+# jmeter run results
+jmeter/report/
+jmeter/test-plan.jtl
