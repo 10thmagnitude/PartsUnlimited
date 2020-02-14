@@ -65,7 +65,7 @@ jobs:
 
 - job: jmeter
   displayName: JMeter Load Test
-  condition: eq(parameters.runLoadTests, 'yes')
+  condition: eq(${{ parameters.runLoadTests }}, 'yes')
   dependsOn: routeTraffic
   pool:
     vmImage: ubuntu-latest
