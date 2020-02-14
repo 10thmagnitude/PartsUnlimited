@@ -77,7 +77,6 @@ jobs:
       filePath: 'jmeter/test.sh'
       arguments: '$PWD CartTest.jmx ${{ parameters.webApp }}.azurewebsites.net'
       workingDirectory: jmeter
-      failOnStderr: true
 
   - task: PublishPipelineArtifact@1
     displayName: Publish JMeter Report
