@@ -50,7 +50,7 @@ jobs:
             SqlUsername: tfadmin
             SqlPassword: $(SQLPassword)
             deployType: InlineSqlTask
-            SqlInline: DELETE FROM CartItems
+            SqlInline: TRUNCATE TABLE CartItems
         
         #- ${{ if eq(parameters.runLoadTests, 'yes') }}:
           # - task: CloudLoadTest@1
