@@ -3,7 +3,7 @@
 # Run JMeter Docker image with options
 
 NAME="jmetertest"
-IMAGE="justb4/jmeter:latest"
+IMAGE="justb4/jmeter:3.3"
 ROOTPATH=$1
 
 echo "$ROOTPATH"
