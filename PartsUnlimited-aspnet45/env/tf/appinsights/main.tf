@@ -45,7 +45,7 @@ resource "azurerm_application_insights" "appinsights" {
   name                = "${local.appinsights_name}"
   location            = "${azurerm_resource_group.airg.location}"
   resource_group_name = "${azurerm_resource_group.airg.name}"
-  application_type    = "Web"
+  application_type    = "web"
 
   tags = {
     environment       = "${terraform.workspace}"
