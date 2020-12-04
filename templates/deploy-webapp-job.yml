@@ -61,7 +61,7 @@ jobs:
               SELECT @itemCount = COUNT(CartItemId) FROM CartItems
               IF 1000 < @itemCount
                 BEGIN
-                  DELETE FROM CartItems;
+                  TRUNCATE TABLE CartItems;
                 END
         
         - ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
