@@ -46,6 +46,12 @@ jobs:
       # can only do sonar on master branch because of community edition
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
+  - task: UseDotNet@2
+    displayName: Set netcore version
+    inputs:
+      packageType: 'sdk'
+      version: '3.1'
+      
   - task: VSBuild@1
     displayName: Build solution
     inputs:
