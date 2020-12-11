@@ -26,7 +26,7 @@ namespace PartsUnlimited
         {
             // change in common1
             AreaRegistration.RegisterAllAreas();
-            System.Console.WriteLine("Hello DevSecOps!");
+            System.Console.WriteLine("Hello OA!");
 
             Database.SetInitializer(new PartsUnlimitedDbInitializer());
 
