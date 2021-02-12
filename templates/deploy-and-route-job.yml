@@ -45,7 +45,7 @@ jobs:
           displayName: Prep Test Data
           inputs:
             azureSubscription: ${{ parameters.azureSub }}
-            ServerName: cdpusqlprod.database.windows.net
+            ServerName: cdpu3sqlprod.database.windows.net
             DatabaseName: PartsUnlimited
             SqlUsername: tfadmin
             SqlPassword: $(SQLPassword)

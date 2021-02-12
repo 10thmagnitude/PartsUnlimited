@@ -51,7 +51,7 @@ jobs:
           displayName: Clean SQL for load testing
           inputs:
             azureSubscription: ${{ parameters.azureSub }}
-            ServerName: cdpusql${{ parameters.logicalEnvironment }}.database.windows.net
+            ServerName: cdpu3sql${{ parameters.logicalEnvironment }}.database.windows.net
             DatabaseName: PartsUnlimited
             SqlUsername: tfadmin
             SqlPassword: $(SQLPassword)
