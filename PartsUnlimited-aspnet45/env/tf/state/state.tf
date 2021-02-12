@@ -4,8 +4,8 @@
 # NOTE:  this is pre-configuration, these values need to be static; variable interpolation will fail
 terraform {
   backend "azurerm" {
-    resource_group_name  = "cd-pu2-state-rg"
-    storage_account_name = "cdpu2statesa"
+    resource_group_name  = "cd-pu3-state"
+    storage_account_name = "cdpu3state"
     container_name       = "state"
     key                  = "root.terraform.tfstate"
   }
