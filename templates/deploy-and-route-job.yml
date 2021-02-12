@@ -50,7 +50,14 @@ jobs:
             SqlUsername: tfadmin
             SqlPassword: $(SQLPassword)
             deployType: InlineSqlTask
-            SqlInline: TRUNCATE TABLE CartItems
+            SqlInline: | 
+              IF (EXISTS (SELECT * 
+                 FROM INFORMATION_SCHEMA.TABLES 
+                 WHERE TABLE_SCHEMA = 'dbo' 
+                 AND  TABLE_NAME = 'CartItems'))
+              BEGIN
+                  TRUNCATE TABLE CartItems
+              END
         
         #- ${{ if eq(parameters.runLoadTests, 'yes') }}:
           # - task: CloudLoadTest@1
