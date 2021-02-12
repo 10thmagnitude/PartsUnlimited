@@ -72,49 +72,6 @@
                     "WebTest": "[concat('<WebTest         Name=\"', variables('tests')[copyIndex()].name, '\"         Id=\"67830211-d2b7-457b-b6c9-c68cf2dad3b4\"         Enabled=\"True\"         CssProjectStructure=\"\"         CssIteration=\"\"         Timeout=\"120\"         WorkItemIds=\"\"         xmlns=\"http://microsoft.com/schemas/VisualStudio/TeamTest/2010\"         Description=\"\"         CredentialUserName=\"\"         CredentialPassword=\"\"         PreAuthenticate=\"True\"         Proxy=\"default\"         StopOnError=\"False\"         RecordedResultFile=\"\"         ResultsLocale=\"\">        <Items>        <Request         Method=\"GET\"         Guid=\"a613b2ab-8c80-e5c0-e94e-25c96041ae31\"         Version=\"1.1\"         Url=\"', parameters('baseUrl'), '/ShoppingCart/AddToCart/', variables('tests')[copyIndex()].productId, '\"         ThinkTime=\"0\"         Timeout=\"120\"         ParseDependentRequests=\"False\"         FollowRedirects=\"True\"         RecordResult=\"True\"         Cache=\"False\"         ResponseTimeGoal=\"0\"         Encoding=\"utf-8\"         ExpectedHttpStatusCode=\"200\"         ExpectedResponseUrl=\"\"         ReportingName=\"\"         IgnoreHttpStatusCode=\"False\" />        </Items>        </WebTest>')]"
                 }
             }
-        },
-        {
-            "copy": {
-                "name": "alerts",
-                "count": "[length(variables('tests'))]"
-            },
-            "apiVersion": "2016-03-01",
-            "id": "[resourceId('Microsoft.Insights/alertrules', tolower(concat(variables('tests')[copyIndex()].name, '-', parameters('appInsightsName'), '-', subscription().subscriptionId)))]",
-            "name": "[tolower(concat(variables('tests')[copyIndex()].name, '-', parameters('appInsightsName'), '-', subscription().subscriptionId))]",
-            "type": "Microsoft.Insights/alertRules",
-            "location": "[parameters('location')]",
-            "tags": {
-                "[concat('hidden-link:', resourceId('Microsoft.Insights/components', parameters('appInsightsName')))]": "Resource",
-                "[concat('hidden-link:', resourceId('Microsoft.Insights/webtests', variables('tests')[copyIndex()].name))]": "Resource"
-            },
-            "properties": {
-                "name": "[tolower(concat(variables('tests')[copyIndex()].name, '-', parameters('appInsightsName'), '-', subscription().subscriptionId))]",
-                "description": "",
-                "isEnabled": false,
-                "condition": {
-                    "$type": "Microsoft.WindowsAzure.Management.Monitoring.Alerts.Models.LocationThresholdRuleCondition, Microsoft.WindowsAzure.Management.Mon.Client",
-                    "odata.type": "Microsoft.Azure.Management.Insights.Models.LocationThresholdRuleCondition",
-                    "dataSource": {
-                        "$type": "Microsoft.WindowsAzure.Management.Monitoring.Alerts.Models.RuleMetricDataSource, Microsoft.WindowsAzure.Management.Mon.Client",
-                        "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
-                        "resourceUri": "[resourceId('Microsoft.insights/webtests', tolower(concat(variables('tests')[0].name, '-', parameters('appInsightsName'))))]",
-                        "metricName": "GSMT_AvRaW"
-                    },
-                    "windowSize": "PT5M",
-                        "failedLocationCount": 3
-                    },
-                    "actions": [
-                    {
-                        "$type": "Microsoft.WindowsAzure.Management.Monitoring.Alerts.Models.RuleEmailAction, Microsoft.WindowsAzure.Management.Mon.Client",
-                        "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
-                        "sendToServiceOwners": false,
-                        "customEmails": ["cdembovsky@10thmagnitude.com"]
-                    }
-                ]
-            },
-            "dependsOn": [
-                "webtests"
-            ]
         }
     ]
 }
