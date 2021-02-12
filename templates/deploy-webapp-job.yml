@@ -57,12 +57,18 @@ jobs:
             SqlPassword: $(SQLPassword)
             deployType: InlineSqlTask
             SqlInline: |
-              DECLARE @itemCount INT;
-              SELECT @itemCount = COUNT(CartItemId) FROM CartItems
-              IF 1000 < @itemCount
-                BEGIN
-                  TRUNCATE TABLE CartItems;
-                END
+            IF (EXISTS (SELECT * 
+                 FROM INFORMATION_SCHEMA.TABLES 
+                 WHERE TABLE_SCHEMA = 'dbo' 
+                 AND  TABLE_NAME = 'CartItems'))
+              BEGIN
+                DECLARE @itemCount INT;
+                SELECT @itemCount = COUNT(CartItemId) FROM CartItems
+                IF 1000 < @itemCount
+                  BEGIN
+                      TRUNCATE TABLE CartItems;
+                  END
+              END
         
         - ${{ if eq(parameters.runQuickPerfTests, 'yes') }}:
           - task: QuickPerfTest@1
