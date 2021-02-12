@@ -7,10 +7,8 @@ jobs:
 - job: runSelenium
   dependsOn: ${{ parameters.dependsOn }}
   displayName: Run Selenium Tests
-  # pool:
-  #   name: CD-ACI
-  pool: 
-    vmImage: ubuntu-latest
+  pool:
+    name: CD-ACI
   variables:
     seleniumTestsPath: $(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/test/PartsUnlimited.NetCore.SeleniumTests
     BaseUrl: ${{ parameters.baseUrl }}
