@@ -2,7 +2,7 @@ access_key = "__ARMAccessKey__"
 
 subscription_id = "__ARMSubscriptionId__"
 
-client_id = "__ARMClienId__"
+client_id = "__ARMClientId__"
 
 client_secret = "__ARMClientSecret__"
 

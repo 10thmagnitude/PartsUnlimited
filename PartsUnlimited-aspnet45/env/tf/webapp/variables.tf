@@ -17,16 +17,16 @@ variable "stack_config" {
   default = {
     dev = {
       name             = "webapp"
-      rg_name_prefix   = "cd-pu2"
-      plan_name_prefix = "cdpu2"
-      app_name_prefix  = "cdpartsun2"
+      rg_name_prefix   = "cd-pu3"
+      plan_name_prefix = "cdpu3"
+      app_name_prefix  = "cdpartsun3"
     }
 
     prod = {
       name             = "webapp"
-      rg_name_prefix   = "cd-pu2"
-      plan_name_prefix = "cdpu2"
-      app_name_prefix  = "cdpartsun2"
+      rg_name_prefix   = "cd-pu3"
+      plan_name_prefix = "cdpu3"
+      app_name_prefix  = "cdpartsun3"
     }
   }
 }

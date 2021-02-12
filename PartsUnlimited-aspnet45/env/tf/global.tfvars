@@ -1,6 +1,6 @@
 environment = {
   dev = {
-    location = "westus2"
+    location = "centralus"
     db.edition = "Basic"
     db.sku = "Basic"
 
@@ -12,7 +12,7 @@ environment = {
   }
 
   prod = {
-    location = "westus2"
+    location = "centralus"
     db.edition = "Standard"
     db.sku = "S1"
 
@@ -25,5 +25,5 @@ environment = {
 }
 
 created_by = "colin"
-rg_prefix = "cd-pu2"
+rg_prefix = "cd-pu3"
 app = "PartsUnlimited"

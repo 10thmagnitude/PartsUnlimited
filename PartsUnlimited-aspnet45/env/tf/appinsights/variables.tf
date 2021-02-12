@@ -17,16 +17,16 @@ variable "stack_config" {
   default = {
     dev = {
       name            = "appinsights"
-      rg_name_prefix  = "cd-pu2"
-      ai_name_prefix  = "cdpu2"
-      web_name_prefix = "cdpartsun2"
+      rg_name_prefix  = "cd-pu3"
+      ai_name_prefix  = "cdpu3"
+      web_name_prefix = "cdpartsun3"
     }
 
     prod = {
       name            = "appinsights"
-      rg_name_prefix  = "cd-pu2"
-      ai_name_prefix  = "cdpu2"
-      web_name_prefix = "cdpartsun2"
+      rg_name_prefix  = "cd-pu3"
+      ai_name_prefix  = "cdpu3"
+      web_name_prefix = "cdpartsun3"
     }
   }
 }
