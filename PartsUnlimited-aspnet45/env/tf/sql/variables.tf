@@ -17,14 +17,14 @@ variable "stack_config" {
   default = {
     dev = {
       name                   = "data"
-      sql_server_name_prefix = "cdpusql"
+      sql_server_name_prefix = "cdpu3sql"
       sql_admin_username     = "tfadmin"
       db_name                = "PartsUnlimited"
     }
 
     prod = {
       name                   = "data"
-      sql_server_name_prefix = "cdpusql"
+      sql_server_name_prefix = "cdpu3sql"
       sql_admin_username     = "tfadmin"
       db_name                = "PartsUnlimited"
     }
