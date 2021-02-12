@@ -57,7 +57,7 @@ jobs:
             SqlPassword: $(SQLPassword)
             deployType: InlineSqlTask
             SqlInline: |
-            IF (EXISTS (SELECT * 
+              IF (EXISTS (SELECT * 
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'CartItems'))
