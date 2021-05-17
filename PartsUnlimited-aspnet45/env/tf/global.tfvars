@@ -1,26 +1,26 @@
 environment = {
   dev = {
     location = "centralus"
-    db.edition = "Basic"
-    db.sku = "Basic"
+    db_edition = "Basic"
+    db_sku = "Basic"
 
-    webapp.tier = "Shared"
-    webapp.sku = "D1"
+    webapp_tier = "Shared"
+    webapp_sku = "D1"
     # this has to be a comma-separated list since an array causes a "not homogeneous types" error
     # for no slots, leave as an empty string
-    webapp.slots = "" 
+    webapp_slots = "" 
   }
 
   prod = {
     location = "centralus"
-    db.edition = "Standard"
-    db.sku = "S1"
+    db_edition = "Standard"
+    db_sku = "S1"
 
-    webapp.tier = "Standard"
-    webapp.sku = "S1"
+    webapp_tier = "Standard"
+    webapp_sku = "S1"
     # this has to be a comma-separated list since an array causes a "not homogeneous types" error
     # for no slots, leave as an empty string
-    webapp.slots = "blue" 
+    webapp_slots = "blue" 
   }
 }
 

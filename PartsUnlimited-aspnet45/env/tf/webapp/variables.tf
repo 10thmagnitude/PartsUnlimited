@@ -4,15 +4,15 @@ variable "client_secret" {}
 variable "tenant_id" {}
 
 variable "environment" {
-  type = "map"
+  type = map(any)
 }
 
 variable "secrets" {
-  type = "map"
+  type = map(any)
 }
 
 variable "stack_config" {
-  type = "map"
+  type = map(any)
 
   default = {
     dev = {
