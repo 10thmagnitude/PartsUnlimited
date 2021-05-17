@@ -1,4 +1,5 @@
 parameters:
+  deploy: false
   environment: ''
   logicalEnvironment: dev
   armAccessKey: ''
@@ -24,57 +25,58 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - checkout: self
-          fetchDepth: 1
+        - ${{ if parameters.deploy }}:
+          - checkout: self
+            fetchDepth: 1
 
-        - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
-          displayName: Replace tokens in ${{ parameters.rootPath }}
-          inputs:
-            sourcePath: ${{ parameters.rootPath }}
-            filePattern: release.tfvars
-        
-        - script: |
-            if [ ! -f $TFPATH/terraform ]; then
-              echo "Downloading terraform from $TFURL to $TFPATH"
-              curl $TFURL -o terraform.zip
-              mkdir -p $TFPATH
-              unzip terraform.zip -d $TFPATH
-            else
-              echo "Terraform already exists in $TFPATH"
-            fi
-            $TFPATH/terraform -version
-          env:
-            TFPATH: ${{ parameters.tfPath}}
-            TFURL: ${{ parameters.tfDownloadUrl }}
-          displayName: Download terraform
-        
-        - ${{ each stack in parameters.stacks }}:
+          - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
+            displayName: Replace tokens in ${{ parameters.rootPath }}
+            inputs:
+              sourcePath: ${{ parameters.rootPath }}
+              filePattern: release.tfvars
+          
           - script: |
-              echo "access_key = \"$ARMACCESSKEY\"" > ../backend.tfvars
-              $TFPATH/terraform init -backend-config=../backend.tfvars -no-color
-              echo "*********** Initialize backend"
-              echo ""
-              echo "*********** Create or select workspace"
-              if [ $($TFPATH/terraform workspace list | grep $ENVIRONMENT | wc -l) -eq 0 ]; then
-                echo "Create new workspace $ENVIRONMENT"
-                $TFPATH/terraform workspace new $ENVIRONMENT -no-color
+              if [ ! -f $TFPATH/terraform ]; then
+                echo "Downloading terraform from $TFURL to $TFPATH"
+                curl $TFURL -o terraform.zip
+                mkdir -p $TFPATH
+                unzip terraform.zip -d $TFPATH
               else
-                echo "Switch to workspace $ENVIRONMENT"
-                $TFPATH/terraform workspace select $ENVIRONMENT -no-color
+                echo "Terraform already exists in $TFPATH"
               fi
-
-              echo ""
-              echo "*********** Run 'plan'"
-              $TFPATH/terraform plan --var-file=../global.tfvars --var-file=../release.tfvars -var="release=$RELEASE" --out=./tf.plan -no-color -input=false
-
-              echo ""
-              echo "*********** Run 'apply'"
-              $TFPATH/terraform apply -no-color -input=false -auto-approve ./tf.plan
+              $TFPATH/terraform -version
             env:
-              ARMACCESSKEY: ${{ parameters.armAccessKey}}
               TFPATH: ${{ parameters.tfPath}}
-              ENVIRONMENT: ${{ parameters.logicalEnvironment }}
-              RELEASE: $(Build.BuildNumber)
-            displayName: Run terraform in ${{ stack }}
-            workingDirectory: ${{ parameters.rootPath }}/${{ stack }}
-            failOnStderr: true
+              TFURL: ${{ parameters.tfDownloadUrl }}
+            displayName: Download terraform
+          
+          - ${{ each stack in parameters.stacks }}:
+            - script: |
+                echo "access_key = \"$ARMACCESSKEY\"" > ../backend.tfvars
+                $TFPATH/terraform init -backend-config=../backend.tfvars -no-color
+                echo "*********** Initialize backend"
+                echo ""
+                echo "*********** Create or select workspace"
+                if [ $($TFPATH/terraform workspace list | grep $ENVIRONMENT | wc -l) -eq 0 ]; then
+                  echo "Create new workspace $ENVIRONMENT"
+                  $TFPATH/terraform workspace new $ENVIRONMENT -no-color
+                else
+                  echo "Switch to workspace $ENVIRONMENT"
+                  $TFPATH/terraform workspace select $ENVIRONMENT -no-color
+                fi
+
+                echo ""
+                echo "*********** Run 'plan'"
+                $TFPATH/terraform plan --var-file=../global.tfvars --var-file=../release.tfvars -var="release=$RELEASE" --out=./tf.plan -no-color -input=false
+
+                echo ""
+                echo "*********** Run 'apply'"
+                $TFPATH/terraform apply -no-color -input=false -auto-approve ./tf.plan
+              env:
+                ARMACCESSKEY: ${{ parameters.armAccessKey}}
+                TFPATH: ${{ parameters.tfPath}}
+                ENVIRONMENT: ${{ parameters.logicalEnvironment }}
+                RELEASE: $(Build.BuildNumber)
+              displayName: Run terraform in ${{ stack }}
+              workingDirectory: ${{ parameters.rootPath }}/${{ stack }}
+              failOnStderr: true

@@ -7,6 +7,7 @@ variables:
   RootTFPath: $(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf
   AzureSubscription: USCW - DevOps Practice
   VSTSEndpoint: '10M VSTS'
+  deployTF: false
 
 stages:
 - stage: build
@@ -26,13 +27,14 @@ stages:
   variables:
   - group: PartsUnlimited Terraform Secrets
   jobs:
-  # - template: templates/terraform-job.yml
-  #   parameters:
-  #     armAccessKey: $(ARMAccessKey)
-  #     environment: PartsUnlimited-DEV
-  #     logicalEnvironment: dev
-  #     rootPath: $(RootTFPath)
-  #     tfDownloadUrl: $(TFDownloadURL)
+  - template: templates/terraform-job.yml
+    parameters:
+      deploy: $(deployTF)
+      armAccessKey: $(ARMAccessKey)
+      environment: PartsUnlimited-DEV
+      logicalEnvironment: dev
+      rootPath: $(RootTFPath)
+      tfDownloadUrl: $(TFDownloadURL)
 
   - template: templates/deploy-webapp-job.yml
     parameters:
@@ -56,13 +58,14 @@ stages:
   variables:
   - group: PartsUnlimited Terraform Secrets
   jobs:
-  # - template: templates/terraform-job.yml
-  #   parameters:
-  #     armAccessKey: $(ARMAccessKey)
-  #     environment: PartsUnlimited-PROD
-  #     logicalEnvironment: prod
-  #     rootPath: $(RootTFPath)
-  #     tfDownloadUrl: $(TFDownloadURL)
+  - template: templates/terraform-job.yml
+    parameters:
+      deploy: $(deployTF)
+      armAccessKey: $(ARMAccessKey)
+      environment: PartsUnlimited-PROD
+      logicalEnvironment: prod
+      rootPath: $(RootTFPath)
+      tfDownloadUrl: $(TFDownloadURL)
 
   - template: templates/deploy-webapp-job.yml
     parameters:
