@@ -3,7 +3,7 @@ name: 1.0.0$(Rev:.r)
 variables:
   RGPrefix: cd-pu3
   WebAppPrefix: cdpartsun3
-  TFDownloadURL: https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+  TFDownloadURL: https://releases.hashicorp.com/terraform/0.11.15/terraform_0.11.15_linux_amd64.zip
   RootTFPath: $(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf
   AzureSubscription: USCW - DevOps Practice
   VSTSEndpoint: '10M VSTS'
