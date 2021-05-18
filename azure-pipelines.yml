@@ -7,7 +7,6 @@ variables:
   RootTFPath: $(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf
   AzureSubscription: USCW - DevOps Practice
   VSTSEndpoint: "10M VSTS"
-  deployInfra: yes
 
 stages:
   - stage: build
