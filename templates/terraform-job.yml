@@ -1,5 +1,5 @@
 parameters:
-  deployInfra: false
+  deployInfra: 'no'
   environment: ''
   logicalEnvironment: dev
   armAccessKey: ''
@@ -25,7 +25,7 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - ${{ if eq(parameters.deployInfra, 'true') }}:
+        - ${{ if eq(parameters.deployInfra, 'yes') }}:
           - checkout: self
             fetchDepth: 1
 
