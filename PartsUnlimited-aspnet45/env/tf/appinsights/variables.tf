@@ -1,18 +1,25 @@
-variable "subscription_id" {}
-variable "client_id" {}
-variable "client_secret" {}
-variable "tenant_id" {}
+variable "subscription_id" {
+}
+
+variable "client_id" {
+}
+
+variable "client_secret" {
+}
+
+variable "tenant_id" {
+}
 
 variable "environment" {
-  type = "map"
+  type = map(any)
 }
 
 variable "secrets" {
-  type = "map"
+  type = map(any)
 }
 
 variable "stack_config" {
-  type = "map"
+  type = map(any)
 
   default = {
     dev = {
@@ -21,7 +28,6 @@ variable "stack_config" {
       ai_name_prefix  = "cdpu3"
       web_name_prefix = "cdpartsun3"
     }
-
     prod = {
       name            = "appinsights"
       rg_name_prefix  = "cd-pu3"
@@ -31,8 +37,18 @@ variable "stack_config" {
   }
 }
 
-variable "created_by" {}
-variable "access_key" {}
-variable "rg_prefix" {}
-variable "release" {}
-variable "app" {}
+variable "created_by" {
+}
+
+variable "access_key" {
+}
+
+variable "rg_prefix" {
+}
+
+variable "release" {
+}
+
+variable "app" {
+}
+

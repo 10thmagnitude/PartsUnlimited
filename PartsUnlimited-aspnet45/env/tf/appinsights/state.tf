@@ -6,3 +6,4 @@ terraform {
     key                  = "appinsights.terraform.tfstate"
   }
 }
+
