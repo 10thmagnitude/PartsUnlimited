@@ -10,6 +10,9 @@ variable "client_secret" {
 variable "tenant_id" {
 }
 
+variable "access_key" {
+}
+
 variable "environment" {
   type = map(any)
 }
