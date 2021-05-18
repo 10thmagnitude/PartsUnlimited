@@ -25,6 +25,9 @@ jobs:
     runOnce:
       deploy:
         steps:
+        - script: | 
+            echo "${{ parameters.deployInfra }}"
+        
         - ${{ if eq(parameters.deployInfra, 'yes') }}:
           - checkout: self
             fetchDepth: 1
