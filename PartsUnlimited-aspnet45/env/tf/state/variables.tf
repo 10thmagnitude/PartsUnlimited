@@ -1,7 +1,14 @@
-variable "subscription_id" {}
-variable "client_id" {}
-variable "client_secret" {}
-variable "tenant_id" {}
+variable "subscription_id" {
+}
+
+variable "client_id" {
+}
+
+variable "client_secret" {
+}
+
+variable "tenant_id" {
+}
 
 variable "location" {
   default     = "westus2"
@@ -22,3 +29,4 @@ variable "state_storage_container_name" {
   default     = "state"
   description = "The name of the storage container to create."
 }
+
