@@ -28,7 +28,7 @@ jobs:
         - script: | 
             echo "${{ parameters.deployInfra }}"
         
-        - ${{ if eq(parameters.deployInfra, 'yes') }}:
+        - ${{ if eq(parameters.deployInfra, 'no') }}:
           - checkout: self
             fetchDepth: 1
 
