@@ -7,7 +7,11 @@ variables:
   RootTFPath: $(System.DefaultWorkingDirectory)/PartsUnlimited-aspnet45/env/tf
   AzureSubscription: USCW - DevOps Practice
   VSTSEndpoint: '10M VSTS'
-  deployInfra: false
+
+parameters:
+  - name: deployInfra
+    type: boolean
+    default: false
 
 stages:
 - stage: build
@@ -29,7 +33,7 @@ stages:
   jobs:
   - template: templates/terraform-job.yml
     parameters:
-      deployInfra: $(deployInfra)
+      deployInfra: ${{ parameters.deployInfra }}
       armAccessKey: $(ARMAccessKey)
       environment: PartsUnlimited-DEV
       logicalEnvironment: dev
@@ -60,7 +64,7 @@ stages:
   jobs:
   - template: templates/terraform-job.yml
     parameters:
-      deployInfra: $(deployInfra)
+      deployInfra: ${{ parameters.deployInfra }}
       armAccessKey: $(ARMAccessKey)
       environment: PartsUnlimited-PROD
       logicalEnvironment: prod
