@@ -8,6 +8,11 @@ variables:
   AzureSubscription: USCW - DevOps Practice
   VSTSEndpoint: "10M VSTS"
 
+parameters:
+  - name: deployInfra
+    type: boolean
+    default: false
+
 stages:
   - stage: build
     displayName: Build and test sources
@@ -28,7 +33,7 @@ stages:
     jobs:
       - template: templates/terraform-job.yml
         parameters:
-          deployInfra: $(deployInfra)
+          deployInfra: ${{ parameters.deployInfra }}
           armAccessKey: $(ARMAccessKey)
           environment: PartsUnlimited-DEV
           logicalEnvironment: dev
@@ -59,7 +64,7 @@ stages:
     jobs:
       - template: templates/terraform-job.yml
         parameters:
-          deployInfra: $(deployInfra)
+          deployInfra: ${{ parameters.deployInfra }}
           armAccessKey: $(ARMAccessKey)
           environment: PartsUnlimited-PROD
           logicalEnvironment: prod
